@@ -14,8 +14,8 @@
 <meta property="og:locale" content="zh_TW">
 <meta name="theme-color" content="#f3f4f8">
 <script src="language.js?v=travel-access"></script>
-<link rel="stylesheet" href="styles.css?v=flight-reference">
-<script src="navigation.js?v=travel-access" defer></script>
+<link rel="stylesheet" href="styles.css?v=field-guide">
+<script src="navigation.js?v=field-guide" defer></script>
 </head>
 <body id="top">
 <a class="skip" href="#main-content">跳到目前內容</a>
@@ -48,28 +48,32 @@
 <h2 id="itinerary-title">每日行程</h2>
 <p class="itinerary-time">行程時間皆為帛琉當地時間。</p>
 <nav class="jump" aria-label="按天前往"><a href="#day-1">第 1 天</a><a href="#day-2">第 2 天</a><a href="#day-3">第 3 天</a><a href="#day-4">第 4 天</a><a href="#day-5">第 5 天</a></nav>
-<div class="days"><article id="day-1">
-<header class="day-heading"><p class="day">第 1 天</p><h3>抵達科羅</h3></header>
+<div class="itinerary-controls" hidden>
+  <label><input type="checkbox" id="single-day" aria-controls="day-list" aria-describedby="day-view-status"> 一次只看一天</label>
+  <output id="day-view-status" aria-live="polite"></output>
+</div>
+<div class="days" id="day-list"><article id="day-1" aria-labelledby="day-1-label day-1-title">
+<header class="day-heading"><p class="day" id="day-1-label">第 1 天</p><h3 id="day-1-title">抵達科羅</h3></header>
 <dl><div><dt>上午</dt><dd>桃園出發，依班機時間調整</dd></div><div><dt>下午</dt><dd>抵達 ROR，搭飯店接駁前往科羅，入住後在市區補水、換少量美元現金</dd></div><div><dt>晚上</dt><dd>科羅市區晚餐，確認隔日接送時間與浮潛裝備。晚到就直接入住</dd></div></dl>
-<nav class="day-actions" aria-label="第 1 天相關連結"><a href="#day-2">第 2 天</a></nav>
+<nav class="day-actions" aria-label="第 1 天相關連結"><a href="#direct-flights">查看去程航班</a><a href="#day-2">第 2 天</a></nav>
 </article>
-<article id="day-2">
-<header class="day-heading"><p class="day">第 2 天</p><h3>洛克群島浮潛</h3></header>
+<article id="day-2" aria-labelledby="day-2-label day-2-title">
+<header class="day-heading"><p class="day" id="day-2-label">第 2 天</p><h3 id="day-2-title">洛克群島浮潛</h3></header>
 <dl><div><dt>上午</dt><dd>約 <time datetime="08:00">08:00</time>–<time datetime="09:00">09:00</time> 由科羅出發，搭快艇進洛克群島南潟湖。優先安排牛奶湖和一處適合初學者的淺礁</dd></div><div><dt>下午</dt><dd>午餐後依潮汐安排長沙灘或第二處浮潛點，約 <time datetime="16:00">16:00</time>–<time datetime="17:00">17:00</time> 回科羅</dd></div><div><dt>晚上</dt><dd>市區晚餐，休息</dd></div></dl>
 <nav class="day-actions" aria-label="第 2 天相關連結"><a href="#sights-map">景點地圖</a><a href="#day-1">第 1 天</a><a href="#alternatives">出海備案</a><a href="#day-3">第 3 天</a></nav>
 </article>
-<article id="day-3">
-<header class="day-heading"><p class="day">第 3 天</p><h3>巴伯爾道布島陸遊</h3></header>
+<article id="day-3" aria-labelledby="day-3-label day-3-title">
+<header class="day-heading"><p class="day" id="day-3-label">第 3 天</p><h3 id="day-3-title">巴伯爾道布島陸遊</h3></header>
 <dl><div><dt>上午</dt><dd>約 <time datetime="09:00">09:00</time> 包車出發，前往恩加德馬烏瀑布（Ngardmau Waterfall），預留約 2–3 小時步行、休息與折返</dd></div><div><dt>下午</dt><dd>午餐後往恩吉魯穆德（Ngerulmud）看國會建築外觀，再回科羅。步道因大雨關閉時，改逛科羅博物館</dd></div><div><dt>晚上</dt><dd>市區晚餐，確認隔日風浪與出團狀態</dd></div></dl>
 <nav class="day-actions" aria-label="第 3 天相關連結"><a href="#day-2">第 2 天</a><a href="#day-4">第 4 天</a></nav>
 </article>
-<article id="day-4">
-<header class="day-heading"><p class="day">第 4 天</p><h3>紅樹林獨木舟與文化</h3></header>
+<article id="day-4" aria-labelledby="day-4-label day-4-title">
+<header class="day-heading"><p class="day" id="day-4-label">第 4 天</p><h3 id="day-4-title">紅樹林獨木舟與文化</h3></header>
 <dl><div><dt>上午</dt><dd>約 <time datetime="09:00">09:00</time> 參加導覽，划獨木舟探索潟湖與紅樹林。想減少體力負擔可選半日團</dd></div><div><dt>下午</dt><dd>半日團結束後，參觀 Etpison Museum 的傳統舟具、錢幣與木雕。若訂到全天團，博物館移至第 1 天或第 5 天的空檔</dd></div><div><dt>晚上</dt><dd>整理行李，確認隔日機場接送</dd></div></dl>
 <nav class="day-actions" aria-label="第 4 天相關連結"><a href="#day-3">第 3 天</a><a href="#packing">行李清單</a><a href="#day-5">第 5 天</a></nav>
 </article>
-<article id="day-5">
-<header class="day-heading"><p class="day">第 5 天</p><h3>返台</h3></header>
+<article id="day-5" aria-labelledby="day-5-label day-5-title">
+<header class="day-heading"><p class="day" id="day-5-label">第 5 天</p><h3 id="day-5-title">返台</h3></header>
 <dl><div><dt>上午</dt><dd>退房，依航班寄放行李。晚班機可安排 Belau National Museum 或市區午餐</dd></div><div><dt>下午</dt><dd>依航班出發，規劃起飛前約 3 小時抵達機場</dd></div><div><dt>晚上</dt><dd>依實際航班抵達桃園</dd></div></dl>
 <nav class="day-actions" aria-label="第 5 天相關連結"><a href="#day-4">第 4 天</a></nav>
 </article>
@@ -119,7 +123,7 @@
     <label for="sight-query">搜尋景點</label>
     <input type="search" id="sight-query" aria-describedby="sight-count" placeholder="例如 浮潛、Kayangel" autocomplete="off" enterkeyhint="search" aria-controls="sight-results">
     <label class="sight-filter"><input type="checkbox" id="sights-on-trip" aria-controls="sight-results">只看有行程連結</label>
-    <p id="sight-count" role="status"></p>
+    <p id="sight-count" role="status" aria-atomic="true"></p>
     <button type="button" id="clear-sight-query" hidden>清除搜尋</button>
   </div>
   <ol id="sight-results" aria-label="景點搜尋結果">
@@ -255,14 +259,15 @@
 <div class="season-guide flight-guide">
   <h3 id="direct-flights">桃園直飛帛琉航班</h3>
   <p>2026 年 11 月，這條直飛航線由中華航空營運，每週約 4 班，飛行時間約 3 小時 45–55 分鐘。</p>
-  <table aria-labelledby="direct-flights">
+  <table aria-labelledby="direct-flights" aria-describedby="flight-time-note">
+    <caption class="sr-only">2026 年 11 月去程航班參考</caption>
     <thead><tr><th scope="col">班號／飛行日</th><th scope="col">桃園 TPE 出發</th><th scope="col">帛琉 ROR 抵達</th></tr></thead>
     <tbody>
       <tr><th scope="row">CI030 <small>週一、週四</small></th><td><time datetime="09:40">09:40</time></td><td><time datetime="14:35">14:35</time></td></tr>
       <tr><th scope="row">CI028 <small>週三、週六</small></th><td><time datetime="12:25">12:25</time></td><td><time datetime="17:10">17:10</time></td></tr>
     </tbody>
   </table>
-  <p class="flight-guide-note">出發與抵達皆為當地時間。帛琉比台灣快 1 小時，訂票前請以航空公司顯示的日期與班表為準。</p>
+  <p class="flight-guide-note" id="flight-time-note">出發與抵達皆為當地時間。帛琉比台灣快 1 小時，訂票前請以航空公司顯示的日期與班表為準。</p>
   <a href="https://flights.china-airlines.com/en-tw/flights-from-taipei-to-koror-palau">查詢中華航空實際班表</a>
   <a href="https://flyteam.jp/en/airline_route/tpe_ror/flight_schedule">2026 年 11 月班表參考</a>
 </div>
@@ -291,9 +296,10 @@
 </ol>
 <h3 class="booking-heading" id="packing">行李清單</h3>
 <div class="packing-progress" hidden>
+  <p id="packing-remaining"></p>
   <label class="packing-filter"><input type="checkbox" id="packing-unpacked" aria-controls="packing-items">只顯示未打包</label>
   <output id="packing-count" aria-live="polite"></output>
-  <progress id="packing-meter" aria-label="行李打包進度" value="0"></progress>
+  <progress id="packing-meter" aria-describedby="packing-count packing-remaining" aria-label="行李打包進度" value="0"></progress>
   <p id="packing-done" hidden>全部打包完成。</p>
 </div>
 <div class="packing-list" id="packing-items" role="group" aria-labelledby="packing">
@@ -324,7 +330,10 @@
   </fieldset>
 </div>
 </section>
-<footer><a id="back-to-top" href="#top"><span aria-hidden="true">↑</span> 回到頁首</a></footer>
+<footer>
+<button type="button" id="copy-view" hidden>複製本頁連結</button>
+<output id="copy-status" aria-live="polite"></output>
+<a id="back-to-top" href="#top"><span aria-hidden="true">↑</span> 回到頁首</a></footer>
 </main>
 <div class="bottom-bar">
     <nav class="tabs wrap" aria-label="頁面導覽">

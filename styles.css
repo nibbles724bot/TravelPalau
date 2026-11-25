@@ -613,3 +613,45 @@ html { scroll-padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px)); }
 .flight-guide td { font-variant-numeric: tabular-nums; }
 .flight-guide-note { margin: .7rem 0 0; color: var(--muted); font-size: .9375rem; }
 .flight-guide > a { display: inline-flex; align-items: center; min-height: 2.75rem; margin-inline-end: .65rem; }
+
+.itinerary-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .15rem .65rem;
+  margin-bottom: .55rem;
+}
+.itinerary-controls label { display: inline-flex; align-items: center; min-height: 2.75rem; gap: .45rem; cursor: pointer; }
+.itinerary-controls input { accent-color: var(--accent); }
+.itinerary-controls output { color: var(--muted); font-size: .875rem; }
+.itinerary-controls output:empty, #copy-status:empty { display: none; }
+.day-actions a { padding-inline: .12rem; }
+#packing-remaining { margin: 0; color: var(--accent); }
+#copy-view {
+  min-height: 2.75rem;
+  padding-inline: .65rem;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  background: var(--surface);
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+#copy-view:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#copy-status { align-self: center; color: var(--muted); }
+.flight-guide tbody tr + tr { background: var(--paper); }
+.flight-guide td time { white-space: nowrap; font-weight: 650; }
+.flight-guide thead th { vertical-align: bottom; }
+a, button, input, summary { scroll-margin-bottom: .45rem; }
+@media (max-width: 24rem) {
+  .flight-guide th, .flight-guide td { padding-inline: .15rem; }
+  .day-actions { column-gap: .6rem; }
+}
+@media print {
+  .itinerary-controls { display: none !important; }
+  #itinerary:not([hidden]) .days article[hidden] { display: block !important; }
+}
+
+.flight-guide tbody th { white-space: nowrap; }
+.flight-guide tbody th small { white-space: normal; }
+#day-view-status { min-width: 0; overflow-wrap: anywhere; }

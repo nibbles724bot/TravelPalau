@@ -30,6 +30,45 @@ const backToTop = document.querySelector('#back-to-top');
 const dayLinks = [...document.querySelectorAll('.jump a')];
 const main = document.querySelector('main');
 const defaultTitle = document.title;
+const dayCards = [...document.querySelectorAll('.days article')];
+const singleDay = document.querySelector('#single-day');
+const dayViewStatus = document.querySelector('#day-view-status');
+const dayModeKey = 'travelpalau:single-day';
+const activeDayKey = 'travelpalau:active-day';
+let selectedDay = dayCards[0];
+
+function renderDays(target) {
+  const targetDay = target?.closest('.days article');
+  if (targetDay && targetDay !== selectedDay) {
+    selectedDay = targetDay;
+    try {
+      sessionStorage.setItem(activeDayKey, selectedDay.id);
+    } catch {
+      // Keep the current day in memory.
+    }
+  }
+  for (const day of dayCards) day.hidden = singleDay.checked && day !== selectedDay;
+  dayViewStatus.textContent = singleDay.checked
+    ? selectedDay.querySelector('.day').textContent + ' · ' + selectedDay.querySelector('h3').textContent
+    : '';
+  return singleDay.checked ? targetDay || selectedDay : targetDay;
+}
+
+try {
+  singleDay.checked = sessionStorage.getItem(dayModeKey) === '1';
+  selectedDay = dayCards.find(day => day.id === sessionStorage.getItem(activeDayKey)) || selectedDay;
+} catch {
+  // The view toggle still works on the current page.
+}
+singleDay.closest('.itinerary-controls').hidden = false;
+singleDay.addEventListener('change', () => {
+  try {
+    sessionStorage.setItem(dayModeKey, singleDay.checked ? '1' : '0');
+  } catch {
+    // The view toggle still works on the current page.
+  }
+  showTopic(false, false);
+});
 
 function hashDestination() {
   try {
@@ -45,12 +84,13 @@ function focusContent(element) {
   element.focus({ preventScroll: true });
 }
 
-function showTopic(focusOnChange = false) {
+function showTopic(focusOnChange = false, scrollToDestination = true) {
   const target = hashDestination();
   const section = target?.closest('main > section[id]');
   const topic = target === main ? activeSection || '#itinerary' : section ? '#' + section.id : '#itinerary';
   const panel = sections.get(topic);
   const heading = panel.querySelector('h2');
+  const currentDay = renderDays(target);
   const dayTitle = target?.matches('.days article') ? target.querySelector('h3').textContent : '';
   const topicTitle = dayTitle || (topic === '#itinerary' ? '' : heading.textContent);
   document.title = topicTitle ? `${topicTitle} | ${defaultTitle}` : defaultTitle;
@@ -66,7 +106,7 @@ function showTopic(focusOnChange = false) {
     }
   }
   for (const link of dayLinks) {
-    if (link.hash === '#' + target?.id) {
+    if (topic === '#itinerary' && link.hash === '#' + currentDay?.id) {
       link.setAttribute('aria-current', 'location');
     } else {
       link.removeAttribute('aria-current');
@@ -74,15 +114,16 @@ function showTopic(focusOnChange = false) {
   }
   overview.hidden = topic !== '#itinerary';
 
+  activeSection = topic;
+  if (!scrollToDestination) return;
   if (target instanceof HTMLDetailsElement) target.open = true;
   if (target && target !== section) {
     target.scrollIntoView();
     if (focusOnChange) focusContent(target);
-  } else if (topic !== activeSection || target) {
+  } else {
     window.scrollTo(0, 0);
     if (focusOnChange) focusContent(heading);
   }
-  activeSection = topic;
 }
 
 backToTop.addEventListener('click', event => {
@@ -113,6 +154,7 @@ const packingCount = document.querySelector('#packing-count');
 const packingMeter = document.querySelector('#packing-meter');
 const packingFilter = document.querySelector('#packing-unpacked');
 const packingDone = document.querySelector('#packing-done');
+const packingRemaining = document.querySelector('#packing-remaining');
 const packingGroups = [...document.querySelectorAll('.packing-list fieldset')];
 
 function filterPackingItems() {
@@ -130,6 +172,11 @@ function updatePackingProgress() {
   packingCount.textContent = isEnglish
     ? `${checkedItems.length} of ${packingItems.length} items packed`
     : `已打包 ${checkedItems.length}／${packingItems.length} 項`;
+  const remaining = packingItems.length - checkedItems.length;
+  packingRemaining.textContent = remaining
+    ? (isEnglish ? `${remaining} left to pack` : `還有 ${remaining} 項待打包`)
+    : '';
+  packingRemaining.hidden = remaining === 0;
   packingMeter.max = packingItems.length;
   packingMeter.value = checkedItems.length;
   packingCount.parentElement.hidden = false;
@@ -240,3 +287,21 @@ sightQuery.addEventListener('keydown', event => {
 onTrip.addEventListener('change', filterSights);
 clearSightQuery.addEventListener('click', resetSights);
 filterSights();
+
+const copyView = document.querySelector('#copy-view');
+const copyStatus = document.querySelector('#copy-status');
+if (navigator.clipboard?.writeText) {
+  copyView.hidden = false;
+  copyView.addEventListener('click', async () => {
+    const url = new URL(location.href);
+    // Share the explicit language page and the current destination.
+    if (url.pathname.endsWith('/')) url.pathname += 'index.html';
+    if (!hashDestination()) url.hash = activeSection;
+    try {
+      await navigator.clipboard.writeText(url.href);
+      copyStatus.textContent = isEnglish ? 'Link copied.' : '連結已複製。';
+    } catch {
+      copyStatus.textContent = isEnglish ? 'Copy the link from the address bar.' : '請從網址列複製連結。';
+    }
+  });
+}

@@ -14,8 +14,8 @@
 <meta property="og:locale" content="en_US">
 <meta name="theme-color" content="#f3f4f8">
 <script src="language.js?v=travel-access"></script>
-<link rel="stylesheet" href="styles.css?v=flight-reference">
-<script src="navigation.js?v=travel-access" defer></script>
+<link rel="stylesheet" href="styles.css?v=field-guide">
+<script src="navigation.js?v=field-guide" defer></script>
 </head>
 <body id="top">
 <a class="skip" href="#main-content">Skip to current content</a>
@@ -48,28 +48,32 @@
 <h2 id="itinerary-title">Daily itinerary</h2>
 <p class="itinerary-time">All times are local to Palau.</p>
 <nav class="jump" aria-label="Jump to a day"><a href="#day-1">Day 1</a><a href="#day-2">Day 2</a><a href="#day-3">Day 3</a><a href="#day-4">Day 4</a><a href="#day-5">Day 5</a></nav>
-<div class="days"><article id="day-1">
-<header class="day-heading"><p class="day">Day 1</p><h3>Arrive in Koror</h3></header>
+<div class="itinerary-controls" hidden>
+  <label><input type="checkbox" id="single-day" aria-controls="day-list" aria-describedby="day-view-status"> Show one day at a time</label>
+  <output id="day-view-status" aria-live="polite"></output>
+</div>
+<div class="days" id="day-list"><article id="day-1" aria-labelledby="day-1-label day-1-title">
+<header class="day-heading"><p class="day" id="day-1-label">Day 1</p><h3 id="day-1-title">Arrive in Koror</h3></header>
 <dl><div><dt>Morning</dt><dd>Depart from Taoyuan according to your flight schedule.</dd></div><div><dt>Afternoon</dt><dd>Land at ROR and take the hotel shuttle to Koror. After check-in, pick up water and some US dollars.</dd></div><div><dt>Evening</dt><dd>Have dinner in Koror and confirm tomorrow’s pickup and snorkeling gear. If you arrive late, head straight to the hotel.</dd></div></dl>
-<nav class="day-actions" aria-label="Day 1 links"><a href="#day-2">Day 2</a></nav>
+<nav class="day-actions" aria-label="Day 1 links"><a href="#direct-flights">Outbound flight details</a><a href="#day-2">Day 2</a></nav>
 </article>
-<article id="day-2">
-<header class="day-heading"><p class="day">Day 2</p><h3>Rock Islands snorkeling</h3></header>
+<article id="day-2" aria-labelledby="day-2-label day-2-title">
+<header class="day-heading"><p class="day" id="day-2-label">Day 2</p><h3 id="day-2-title">Rock Islands snorkeling</h3></header>
 <dl><div><dt>Morning</dt><dd>Around <time datetime="08:00">08:00</time>–<time datetime="09:00">09:00</time>, depart Koror by speedboat for the Rock Islands Southern Lagoon. Prioritize Milky Way and a shallow reef suitable for beginners.</dd></div><div><dt>Afternoon</dt><dd>After lunch, visit Long Beach or a second snorkeling site, depending on the tide. Return to Koror around <time datetime="16:00">16:00</time>–<time datetime="17:00">17:00</time>.</dd></div><div><dt>Evening</dt><dd>Have dinner in town and rest.</dd></div></dl>
 <nav class="day-actions" aria-label="Day 2 links"><a href="#sights-map">Sightseeing map</a><a href="#day-1">Day 1</a><a href="#alternatives">Boat tour alternatives</a><a href="#day-3">Day 3</a></nav>
 </article>
-<article id="day-3">
-<header class="day-heading"><p class="day">Day 3</p><h3>Babeldaob island tour</h3></header>
+<article id="day-3" aria-labelledby="day-3-label day-3-title">
+<header class="day-heading"><p class="day" id="day-3-label">Day 3</p><h3 id="day-3-title">Babeldaob island tour</h3></header>
 <dl><div><dt>Morning</dt><dd>Around <time datetime="09:00">09:00</time>, leave by private car for Ngardmau Waterfall. Allow 2–3 hours for the round-trip hike and breaks.</dd></div><div><dt>Afternoon</dt><dd>After lunch, see the Capitol from outside in Ngerulmud, then return to Koror. If heavy rain closes the trail, visit a museum in Koror instead.</dd></div><div><dt>Evening</dt><dd>Have dinner in town and check the next day’s sea conditions and tour status.</dd></div></dl>
 <nav class="day-actions" aria-label="Day 3 links"><a href="#day-2">Day 2</a><a href="#day-4">Day 4</a></nav>
 </article>
-<article id="day-4">
-<header class="day-heading"><p class="day">Day 4</p><h3>Mangrove kayaking and culture</h3></header>
+<article id="day-4" aria-labelledby="day-4-label day-4-title">
+<header class="day-heading"><p class="day" id="day-4-label">Day 4</p><h3 id="day-4-title">Mangrove kayaking and culture</h3></header>
 <dl><div><dt>Morning</dt><dd>Around <time datetime="09:00">09:00</time>, join a guided kayak trip through the lagoon and mangroves. Choose a half-day tour for a gentler outing.</dd></div><div><dt>Afternoon</dt><dd>After the half-day tour, see traditional boats, currency and woodcarving at Etpison Museum. With a full-day tour, visit the museum when you have time on Day 1 or Day 5.</dd></div><div><dt>Evening</dt><dd>Pack and confirm your airport transfer for tomorrow.</dd></div></dl>
 <nav class="day-actions" aria-label="Day 4 links"><a href="#day-3">Day 3</a><a href="#packing">Packing checklist</a><a href="#day-5">Day 5</a></nav>
 </article>
-<article id="day-5">
-<header class="day-heading"><p class="day">Day 5</p><h3>Return to Taiwan</h3></header>
+<article id="day-5" aria-labelledby="day-5-label day-5-title">
+<header class="day-heading"><p class="day" id="day-5-label">Day 5</p><h3 id="day-5-title">Return to Taiwan</h3></header>
 <dl><div><dt>Morning</dt><dd>Check out and store luggage if needed. With a late flight, visit Belau National Museum or have lunch in town.</dd></div><div><dt>Afternoon</dt><dd>Plan to reach the airport about three hours before departure.</dd></div><div><dt>Evening</dt><dd>Arrive in Taoyuan according to your flight schedule.</dd></div></dl>
 <nav class="day-actions" aria-label="Day 5 links"><a href="#day-4">Day 4</a></nav>
 </article>
@@ -119,7 +123,7 @@
     <label for="sight-query">Search attractions</label>
     <input type="search" id="sight-query" aria-describedby="sight-count" placeholder="For example, snorkeling or Kayangel" autocomplete="off" enterkeyhint="search" aria-controls="sight-results">
     <label class="sight-filter"><input type="checkbox" id="sights-on-trip" aria-controls="sight-results">Only show itinerary-linked attractions</label>
-    <p id="sight-count" role="status"></p>
+    <p id="sight-count" role="status" aria-atomic="true"></p>
     <button type="button" id="clear-sight-query" hidden>Clear search</button>
   </div>
   <ol id="sight-results" aria-label="Attraction results">
@@ -255,14 +259,15 @@
 <div class="season-guide flight-guide">
   <h3 id="direct-flights">Direct flights from Taoyuan to Palau</h3>
   <p>China Airlines was the only carrier on this nonstop route in November 2026, with about four flights a week. Flying time is about 3 hours 45–55 minutes.</p>
-  <table aria-labelledby="direct-flights">
+  <table aria-labelledby="direct-flights" aria-describedby="flight-time-note">
+    <caption class="sr-only">November 2026 outbound flight reference</caption>
     <thead><tr><th scope="col">Flight / days</th><th scope="col">Departs TPE</th><th scope="col">Arrives ROR</th></tr></thead>
     <tbody>
       <tr><th scope="row">CI030 <small>Mon, Thu</small></th><td><time datetime="09:40">09:40</time></td><td><time datetime="14:35">14:35</time></td></tr>
       <tr><th scope="row">CI028 <small>Wed, Sat</small></th><td><time datetime="12:25">12:25</time></td><td><time datetime="17:10">17:10</time></td></tr>
     </tbody>
   </table>
-  <p class="flight-guide-note">Departure and arrival are shown in local time. Palau is one hour ahead of Taiwan. Check your exact dates with the airline before booking.</p>
+  <p class="flight-guide-note" id="flight-time-note">Departure and arrival are shown in local time. Palau is one hour ahead of Taiwan. Check your exact dates with the airline before booking.</p>
   <a href="https://flights.china-airlines.com/en-tw/flights-from-taipei-to-koror-palau">Check dates with China Airlines</a>
   <a href="https://flyteam.jp/en/airline_route/tpe_ror/flight_schedule">November 2026 schedule reference</a>
 </div>
@@ -291,9 +296,10 @@
 </ol>
 <h3 class="booking-heading" id="packing">Packing checklist</h3>
 <div class="packing-progress" hidden>
+  <p id="packing-remaining"></p>
   <label class="packing-filter"><input type="checkbox" id="packing-unpacked" aria-controls="packing-items">Show unpacked items only</label>
   <output id="packing-count" aria-live="polite"></output>
-  <progress id="packing-meter" aria-label="Packing progress" value="0"></progress>
+  <progress id="packing-meter" aria-describedby="packing-count packing-remaining" aria-label="Packing progress" value="0"></progress>
   <p id="packing-done" hidden>Everything is packed.</p>
 </div>
 <div class="packing-list" id="packing-items" role="group" aria-labelledby="packing">
@@ -324,7 +330,10 @@
   </fieldset>
 </div>
 </section>
-<footer><a id="back-to-top" href="#top"><span aria-hidden="true">↑</span> Back to top</a></footer>
+<footer>
+<button type="button" id="copy-view" hidden>Copy this page link</button>
+<output id="copy-status" aria-live="polite"></output>
+<a id="back-to-top" href="#top"><span aria-hidden="true">↑</span> Back to top</a></footer>
 </main>
 <div class="bottom-bar">
     <nav class="tabs wrap" aria-label="Page navigation">
