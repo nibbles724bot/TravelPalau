@@ -602,3 +602,14 @@ html { scroll-padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px)); }
 .community-stories article > a { display: inline-flex; align-items: center; min-height: 2.75rem; margin-inline-end: .6rem; }
 .conversation { padding: .65rem .75rem; border-inline-start: 2px solid #54746d; background: #edf5f3; }
 .conversation p { margin: .15rem 0 0; }
+
+.flight-guide { margin-bottom: .85rem; }
+.flight-guide h3 { margin-bottom: .45rem; }
+.flight-guide table { width: 100%; border-collapse: collapse; table-layout: fixed; text-align: start; }
+.flight-guide th, .flight-guide td { padding: .45rem .25rem; border-bottom: 1px solid var(--line); }
+.flight-guide th { text-align: start; }
+.flight-guide thead th, .flight-guide small { color: var(--muted); font-size: .875rem; }
+.flight-guide small { display: block; font-weight: 500; }
+.flight-guide td { font-variant-numeric: tabular-nums; }
+.flight-guide-note { margin: .7rem 0 0; color: var(--muted); font-size: .9375rem; }
+.flight-guide > a { display: inline-flex; align-items: center; min-height: 2.75rem; margin-inline-end: .65rem; }
