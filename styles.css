@@ -242,12 +242,6 @@ footer a { display: inline-flex; min-height: 2.75rem; align-items: center; }
   width: auto;
   max-width: none;
 }
-.sight-credit {
-  margin: 0;
-  padding: .2rem .95rem .85rem;
-  color: var(--muted);
-  font-size: .875rem;
-}
 @media (min-width: 23rem) {
   .sight-photo { float: left; margin: .15rem .85rem .35rem 0; }
   .sight-copy { display: flow-root; }
