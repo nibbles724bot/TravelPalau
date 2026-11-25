@@ -78,6 +78,7 @@ function hashDestination() {
   }
 }
 let activeSection;
+let revealSight;
 
 function focusContent(element) {
   if (element.tabIndex < 0) element.setAttribute('tabindex', '-1');
@@ -117,6 +118,9 @@ function showTopic(focusOnChange = false, scrollToDestination = true) {
   activeSection = topic;
   if (!scrollToDestination) return;
   if (target instanceof HTMLDetailsElement) target.open = true;
+  const container = target?.closest('details');
+  if (container) container.open = true;
+  revealSight?.(target);
   if (target && target !== section) {
     target.scrollIntoView();
     if (focusOnChange) focusContent(target);
@@ -242,19 +246,62 @@ document.querySelector('.packing-list').addEventListener('change', event => {
 const sightQuery = document.querySelector('#sight-query');
 const sightCount = document.querySelector('#sight-count');
 const onTrip = document.querySelector('#sights-on-trip');
+const savedOnly = document.querySelector('#sights-saved');
+const savedKey = 'travelpalau:saved-sights';
+let savedSights = new Set();
+
+function restoreSavedSights() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(savedKey) || '[]');
+    savedSights = new Set(Array.isArray(stored) ? stored : []);
+  } catch {
+    // Favorites still work on the current page.
+  }
+}
 const clearSightQuery = document.querySelector('#clear-sight-query');
-const normalizeSearch = value => value.normalize('NFKC').toLowerCase().trim();
-const sights = [...document.querySelectorAll('#sight-results li')].map(element => ({
-  element,
-  text: normalizeSearch(element.querySelector('.sight-copy').textContent),
-  hasTripLink: Boolean(element.querySelector('a[href^="#day-"]'))
-}));
+const normalizeSearch = value => value.normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase().trim();
+const sights = [...document.querySelectorAll('#sight-results li')].map(element => {
+  const copy = element.querySelector('.sight-copy');
+  const title = copy.querySelector('h3').textContent;
+  const text = normalizeSearch(copy.textContent + ' ' + element.id.replaceAll('-', ' '));
+  const actions = document.createElement('div');
+  actions.className = 'sight-actions';
+  const tripLink = copy.querySelector('a');
+  if (tripLink) actions.append(tripLink);
+  const save = document.createElement('button');
+  save.type = 'button';
+  save.className = 'save-sight';
+  save.addEventListener('click', () => {
+    if (savedSights.has(element.id)) savedSights.delete(element.id);
+    else savedSights.add(element.id);
+    try {
+      localStorage.setItem(savedKey, JSON.stringify([...savedSights]));
+    } catch {
+      // Keep this page's favorites in memory.
+    }
+    filterSights();
+    if (element.hidden) savedOnly.focus();
+  });
+  const direct = document.createElement('a');
+  direct.href = '#' + element.id;
+  direct.textContent = isEnglish ? 'Open' : '開啟';
+  direct.setAttribute('aria-label', (isEnglish ? 'Open ' : '開啟') + title);
+  actions.append(save, direct);
+  copy.append(actions);
+  return { element, text, hasTripLink: Boolean(tripLink), save, title };
+});
+restoreSavedSights();
 
 function filterSights() {
   const tokens = normalizeSearch(sightQuery.value).split(/\s+/).filter(Boolean);
   let matches = 0;
-  for (const { element, text, hasTripLink } of sights) {
-    element.hidden = (onTrip.checked && !hasTripLink) || !tokens.every(token => text.includes(token));
+  for (const { element, text, hasTripLink, save, title } of sights) {
+    const saved = savedSights.has(element.id);
+    save.setAttribute('aria-pressed', String(saved));
+    save.setAttribute('aria-label', (isEnglish ? 'Save ' : '收藏') + title);
+    save.textContent = saved ? (isEnglish ? 'Saved' : '已收藏') : (isEnglish ? 'Save' : '收藏');
+    element.hidden = (savedOnly.checked && !saved) || (onTrip.checked && !hasTripLink) ||
+      !tokens.every(token => text.includes(token));
     if (!element.hidden) matches++;
   }
   if (isEnglish) {
@@ -266,12 +313,13 @@ function filterSights() {
       ? `顯示 ${matches}／${sights.length} 個景點`
       : '找不到符合的景點，請調整搜尋或篩選。';
   }
-  clearSightQuery.hidden = !sightQuery.value && !onTrip.checked;
+  clearSightQuery.hidden = !sightQuery.value && !onTrip.checked && !savedOnly.checked;
 }
 
 function resetSights() {
   sightQuery.value = '';
   onTrip.checked = false;
+  savedOnly.checked = false;
   filterSights();
   sightQuery.focus();
 }
@@ -285,23 +333,20 @@ sightQuery.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !event.isComposing) resetSights();
 });
 onTrip.addEventListener('change', filterSights);
+savedOnly.addEventListener('change', filterSights);
+window.addEventListener('storage', event => {
+  if (event.key === savedKey || event.key === null) {
+    restoreSavedSights();
+    filterSights();
+  }
+});
+revealSight = target => {
+  if (target?.matches('#sight-results li[hidden]')) {
+    sightQuery.value = '';
+    onTrip.checked = false;
+    savedOnly.checked = false;
+    filterSights();
+  }
+};
 clearSightQuery.addEventListener('click', resetSights);
 filterSights();
-
-const copyView = document.querySelector('#copy-view');
-const copyStatus = document.querySelector('#copy-status');
-if (navigator.clipboard?.writeText) {
-  copyView.hidden = false;
-  copyView.addEventListener('click', async () => {
-    const url = new URL(location.href);
-    // Share the explicit language page and the current destination.
-    if (url.pathname.endsWith('/')) url.pathname += 'index.html';
-    if (!hashDestination()) url.hash = activeSection;
-    try {
-      await navigator.clipboard.writeText(url.href);
-      copyStatus.textContent = isEnglish ? 'Link copied.' : '連結已複製。';
-    } catch {
-      copyStatus.textContent = isEnglish ? 'Copy the link from the address bar.' : '請從網址列複製連結。';
-    }
-  });
-}

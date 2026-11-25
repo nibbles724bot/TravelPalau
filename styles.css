@@ -624,21 +624,9 @@ html { scroll-padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px)); }
 .itinerary-controls label { display: inline-flex; align-items: center; min-height: 2.75rem; gap: .45rem; cursor: pointer; }
 .itinerary-controls input { accent-color: var(--accent); }
 .itinerary-controls output { color: var(--muted); font-size: .875rem; }
-.itinerary-controls output:empty, #copy-status:empty { display: none; }
+.itinerary-controls output:empty { display: none; }
 .day-actions a { padding-inline: .12rem; }
 #packing-remaining { margin: 0; color: var(--accent); }
-#copy-view {
-  min-height: 2.75rem;
-  padding-inline: .65rem;
-  border: 1px solid var(--line);
-  border-radius: .5rem;
-  background: var(--surface);
-  color: var(--accent);
-  font: inherit;
-  cursor: pointer;
-}
-#copy-view:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-#copy-status { align-self: center; color: var(--muted); }
 .flight-guide tbody tr + tr { background: var(--paper); }
 .flight-guide td time { white-space: nowrap; font-weight: 650; }
 .flight-guide thead th { vertical-align: bottom; }
@@ -661,3 +649,39 @@ a, button, input, summary { scroll-margin-bottom: .45rem; }
 .day-spot-list h3 { font-size: 1.05rem; }
 .day-spot-list p { margin: .3rem 0 0; }
 .day-spot-list a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+
+.sights-links { gap: .35rem; }
+.sights-links a { padding-inline: .55rem; }
+.sights-guide li:target {
+  border-radius: .5rem;
+  background: #edf5f3;
+}
+.sights-guide li[tabindex="-1"]:focus { outline: none; }
+.sight-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .3rem .75rem; }
+.save-sight {
+  min-height: 2.75rem;
+  padding-inline: .55rem;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  background: var(--surface);
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+.save-sight[aria-pressed="true"] { background: #edf5f3; color: #164e49; border-color: #a9c8bf; }
+.save-sight:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media print { .sights-links, .save-sight, .sight-actions a[href^="#"] { display: none !important; } }
+
+.day-spot-list > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: .55rem .85rem;
+}
+.day-spot-list .sight-photo { float: none; margin: 0; }
+.spot-photo { max-width: 10rem; margin: 0; }
+.spot-photo figcaption { font-size: .75rem; text-align: start; }
+.spot-photo figcaption a { display: inline; }
+@media (min-width: 24rem) {
+  .day-spot-list > div { grid-template-columns: 115px minmax(0, 1fr); }
+  .spot-photo { max-width: 115px; }
+}
