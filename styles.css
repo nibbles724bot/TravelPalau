@@ -265,9 +265,7 @@ footer a { display: inline-flex; min-height: 2.75rem; align-items: center; }
 .sights-guide p { margin: .3rem 0 0; }
 .sights-guide li a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 
-.sights-guide li {
-  display: list-item;
-}
+.sights-guide li::after { content: ""; display: block; clear: both; }
 .sight-photo {
   position: relative;
   display: block;
@@ -282,6 +280,7 @@ footer a { display: inline-flex; min-height: 2.75rem; align-items: center; }
   position: absolute;
   left: calc(-1px * var(--photo-x));
   top: calc(-1px * var(--photo-y));
+  width: auto;
   max-width: none;
 }
 .sight-credit {
