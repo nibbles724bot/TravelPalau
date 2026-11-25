@@ -555,3 +555,27 @@ footer { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
   article, .budget-ledger, .season-guide, .packing-list fieldset { box-shadow: none; }
   article, .packing-list fieldset, .sights-guide li { break-inside: avoid; }
 }
+
+.header-tools { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: .2rem .65rem; }
+.language-switch { display: flex; align-items: center; gap: .2rem; }
+.language-switch a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: .42rem;
+  border-radius: .45rem;
+  font-size: .875rem;
+  text-decoration: none;
+}
+.language-switch a[aria-current="page"] { background: var(--tint); font-weight: 700; }
+:lang(en) .jump a { overflow-wrap: normal; }
+:lang(en) .season-facts { grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.75rem), 1fr)); }
+:lang(en) .day-heading { align-items: baseline; }
+:lang(en) .budget-grid dt, :lang(en) .budget-subtotal dt { overflow-wrap: anywhere; }
+
+@media (max-width: 27rem) {
+  .header-tools .route { display: none; }
+}
+@media print {
+  .language-switch { display: none; }
+}

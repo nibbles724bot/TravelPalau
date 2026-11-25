@@ -1,3 +1,13 @@
+const isEnglish = document.documentElement.lang === 'en';
+const languageLinks = [...document.querySelectorAll('.language-switch a')];
+
+function syncLanguageLinks() {
+  for (const link of languageLinks) link.hash = location.hash;
+}
+
+window.addEventListener('hashchange', syncLanguageLinks);
+syncLanguageLinks();
+
 const tabs = [...document.querySelectorAll('.tabs a')];
 const sections = new Map(tabs.map(tab => [
   tab.hash,
@@ -85,7 +95,9 @@ function filterPackingItems() {
 
 function updatePackingProgress() {
   const checkedItems = packingItems.filter(item => item.checked).map(item => item.name);
-  packingCount.textContent = `已打包 ${checkedItems.length}／${packingItems.length} 項`;
+  packingCount.textContent = isEnglish
+    ? `${checkedItems.length} of ${packingItems.length} items packed`
+    : `已打包 ${checkedItems.length}／${packingItems.length} 項`;
   packingMeter.max = packingItems.length;
   packingMeter.value = checkedItems.length;
   packingCount.parentElement.hidden = false;
@@ -145,9 +157,15 @@ function filterSights() {
     element.hidden = (onTrip.checked && !hasTripLink) || !tokens.every(token => text.includes(token));
     if (!element.hidden) matches++;
   }
-  sightCount.textContent = matches
-    ? `顯示 ${matches}／${sights.length} 個景點`
-    : '找不到符合的景點，請調整搜尋或篩選。';
+  if (isEnglish) {
+    sightCount.textContent = matches
+      ? `Showing ${matches} of ${sights.length} attractions`
+      : 'No matches. Try another search or adjust the filter.';
+  } else {
+    sightCount.textContent = matches
+      ? `顯示 ${matches}／${sights.length} 個景點`
+      : '找不到符合的景點，請調整搜尋或篩選。';
+  }
   clearSightQuery.hidden = !sightQuery.value && !onTrip.checked;
 }
 
