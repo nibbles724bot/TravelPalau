@@ -235,3 +235,27 @@ footer a { display: inline-flex; min-height: 2.75rem; align-items: center; }
   th, td { padding-inline: .4rem; }
   td { white-space: normal; }
 }
+
+.season-guide h3,
+.booking-heading { margin-bottom: .75rem; }
+.season-guide .note { margin: 0; }
+.booking-heading { margin-top: 1.5rem; }
+
+.trip-map {
+  margin-bottom: .85rem;
+  border: 1px solid var(--line);
+  border-radius: .85rem;
+  background: var(--surface);
+}
+.trip-map summary {
+  min-height: 2.75rem;
+  padding: .55rem .9rem;
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+}
+.trip-map summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.trip-map figure { margin: 0; padding: 0 .75rem .75rem; }
+.trip-map figure a { display: block; max-width: 43.5rem; margin-inline: auto; }
+.trip-map img { display: block; width: 100%; height: auto; border-radius: .55rem; }
+.trip-map figcaption { margin-top: .5rem; color: var(--muted); text-align: center; }
