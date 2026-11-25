@@ -485,3 +485,47 @@ footer a { gap: .35rem; }
 @media (min-width: 42rem) {
   .season-facts { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
+
+/* Programmatically focused reading destinations keep their native text layout. */
+:where(main, main h2, main h3, main article, body)[tabindex="-1"]:focus { outline: none; }
+.tabs a[aria-current="page"] {
+  background: var(--surface);
+  border-top-color: #54746d;
+  color: #164e49;
+}
+.itinerary-time { margin: -.45rem 0 .85rem; color: var(--muted); font-size: .875rem; }
+.days time { font-weight: 650; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.day-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem .85rem;
+  margin-top: .35rem;
+  border-top: 1px solid var(--line);
+}
+.day-actions a, .packing-filter {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  gap: .5rem;
+}
+.itinerary-notes { margin-top: .85rem; }
+.itinerary-notes p { margin: 0; padding: 0 .9rem .85rem; }
+.sight-tools { padding: 0 .95rem .5rem; }
+.sight-tools label { display: block; margin-bottom: .25rem; font-weight: 650; }
+.sight-tools input, .sight-tools button {
+  min-height: 2.75rem;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+.sight-tools input { width: min(100%, 24rem); padding-inline: .65rem; }
+.sight-tools button { padding-inline: .65rem; cursor: pointer; }
+.sight-tools p, #packing-done { margin: .35rem 0; color: var(--muted); }
+.sight-tools :is(input, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.packing-filter { width: fit-content; cursor: pointer; }
+.packing-filter input { accent-color: var(--accent); }
