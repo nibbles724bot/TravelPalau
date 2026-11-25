@@ -333,3 +333,5 @@ footer a { display: inline-flex; min-height: 2.75rem; align-items: center; }
 @media (min-width: 40rem) {
   .packing-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+.packing-note { color: var(--muted); font-size: .875rem; }
