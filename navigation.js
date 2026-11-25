@@ -49,7 +49,7 @@ function renderDays(target) {
   }
   for (const day of dayCards) day.hidden = singleDay.checked && day !== selectedDay;
   dayViewStatus.textContent = singleDay.checked
-    ? selectedDay.querySelector('.day').textContent + ' · ' + selectedDay.querySelector('h3').textContent
+    ? selectedDay.querySelector('.day').textContent + ' · ' + selectedDay.querySelector('[id$="-title"]').textContent
     : '';
   return singleDay.checked ? targetDay || selectedDay : targetDay;
 }
@@ -92,7 +92,7 @@ function showTopic(focusOnChange = false, scrollToDestination = true) {
   const panel = sections.get(topic);
   const heading = panel.querySelector('h2');
   const currentDay = renderDays(target);
-  const dayTitle = target?.matches('.days article') ? target.querySelector('h3').textContent : '';
+  const dayTitle = target?.matches('.days article') ? target.querySelector('[id$="-title"]').textContent : '';
   const topicTitle = dayTitle || (topic === '#itinerary' ? '' : heading.textContent);
   document.title = topicTitle ? `${topicTitle} | ${defaultTitle}` : defaultTitle;
 
@@ -118,6 +118,8 @@ function showTopic(focusOnChange = false, scrollToDestination = true) {
   activeSection = topic;
   if (!scrollToDestination) return;
   if (target instanceof HTMLDetailsElement) target.open = true;
+  const daySchedule = target?.closest('.days article')?.querySelector('.day-schedule');
+  if (daySchedule) daySchedule.open = true;
   const container = target?.closest('details');
   if (container) container.open = true;
   revealSight?.(target);
@@ -266,7 +268,7 @@ const sights = [...document.querySelectorAll('#sight-results li')].map(element =
   const text = normalizeSearch(copy.textContent + ' ' + element.id.replaceAll('-', ' '));
   const actions = document.createElement('div');
   actions.className = 'sight-actions';
-  const tripLink = copy.querySelector('a');
+  const tripLink = copy.querySelector('a[href^="#day-"]');
   if (tripLink) actions.append(tripLink);
   const save = document.createElement('button');
   save.type = 'button';
@@ -286,6 +288,8 @@ const sights = [...document.querySelectorAll('#sight-results li')].map(element =
   direct.href = '#' + element.id;
   direct.textContent = isEnglish ? 'Open' : '開啟';
   direct.setAttribute('aria-label', (isEnglish ? 'Open ' : '開啟') + title);
+  const map = copy.querySelector('a[href^="https://www.google.com/maps/"]');
+  if (map) actions.append(map);
   actions.append(save, direct);
   copy.append(actions);
   return { element, text, hasTripLink: Boolean(tripLink), save, title };
@@ -350,3 +354,91 @@ revealSight = target => {
 };
 clearSightQuery.addEventListener('click', resetSights);
 filterSights();
+
+const departureInput = document.querySelector('#departure-date');
+const departureStatus = document.querySelector('#departure-status');
+const flightDateMatch = document.querySelector('#flight-date-match');
+const flightRows = [...document.querySelectorAll('[data-flight-days]')];
+const dayDates = [...document.querySelectorAll('.day-date')];
+const tideLinks = [...document.querySelectorAll('[data-tide-day]')];
+const dateStorageKey = 'travelpalau:departure';
+const dateFormatter = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-TW', {
+  month: 'numeric', day: 'numeric', weekday: 'short', timeZone: 'UTC'
+});
+const shiftDate = (date, days) => new Date(date.getTime() + days * 86400000);
+
+function updateDeparture() {
+  const iso = departureInput.value;
+  const valid = Boolean(iso) && departureInput.validity.valid;
+  const departure = valid ? new Date(iso + 'T00:00:00Z') : null;
+  for (const day of dayDates) {
+    day.hidden = !departure;
+    if (departure) {
+      const date = shiftDate(departure, Number(day.dataset.dayOffset));
+      day.dateTime = date.toISOString().slice(0, 10);
+      day.textContent = dateFormatter.format(date);
+    }
+  }
+  for (const link of tideLinks) {
+    const url = new URL(link.href);
+    url.searchParams.delete('bdate');
+    url.searchParams.delete('edate');
+    if (departure) {
+      const date = shiftDate(departure, Number(link.dataset.tideDay) - 1);
+      const key = date.toISOString().slice(0, 10).replaceAll('-', '');
+      url.searchParams.set('bdate', key);
+      url.searchParams.set('edate', key);
+      link.textContent = (isEnglish ? 'Tides · ' : '潮汐 · ') + dateFormatter.format(date);
+    } else {
+      link.textContent = isEnglish ? 'Tide reference' : '潮汐參考';
+    }
+    link.href = url.href;
+  }
+  if (!departure) {
+    departureStatus.textContent = isEnglish
+      ? 'Choose a date to see all five dates and tide references.'
+      : '選擇出發日後，可看五天日期與潮汐參考。';
+  } else {
+    const dates = [departure, shiftDate(departure, 4)].map(date => dateFormatter.format(date)).join(' – ');
+    departureStatus.textContent = dates;
+  }
+  const referenceMonth = departure && iso.startsWith('2026-11-');
+  let matchingFlight = '';
+  for (const row of flightRows) {
+    const matches = referenceMonth && row.dataset.flightDays.split(',').includes(String(departure.getUTCDay()));
+    row.classList.toggle('flight-match', Boolean(matches));
+    if (matches) matchingFlight = row.querySelector('th').firstChild.textContent.trim();
+  }
+  flightDateMatch.hidden = !departure;
+  if (!departure) return;
+  if (!referenceMonth) {
+    flightDateMatch.textContent = isEnglish
+      ? 'This table covers November 2026. Check the airline for your selected date.'
+      : '這份班表僅供 2026 年 11 月參考，請向航空公司查詢所選日期。';
+  } else if (matchingFlight) {
+    flightDateMatch.textContent = isEnglish
+      ? 'Reference flight for your selected weekday: ' + matchingFlight
+      : '所選出發日的星期對應參考班號：' + matchingFlight;
+  } else {
+    flightDateMatch.textContent = isEnglish
+      ? 'No outbound flight appears on this weekday in the reference table.'
+      : '參考班表在所選星期沒有去程航班。';
+  }
+}
+
+try {
+  departureInput.value = localStorage.getItem(dateStorageKey) || '';
+} catch {
+  // The date still works without browser storage.
+}
+departureInput.closest('.departure-plan').hidden = false;
+departureInput.addEventListener('input', () => {
+  try {
+    if (departureInput.validity.valid && departureInput.value) localStorage.setItem(dateStorageKey, departureInput.value);
+    else localStorage.removeItem(dateStorageKey);
+  } catch {
+    // The date still works on the current page.
+  }
+  updateDeparture();
+});
+updateDeparture();
