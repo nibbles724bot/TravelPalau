@@ -99,22 +99,6 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.45rem); }
 .flight-note { margin: .85rem 0 0; font-size: .9375rem; }
 .flight-note a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 
-.trip-cta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: .25rem .8rem;
-  min-height: 3.5rem;
-  padding: .65rem 1rem;
-  border-radius: .85rem;
-  background: linear-gradient(110deg, #146758, #343986 90%);
-  color: #fff;
-  font-weight: 650;
-  text-decoration: none;
-}
-.trip-cta strong { font-size: 1.0625rem; }
-.trip-cta:hover strong { text-decoration: underline; }
 .trip-facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
