@@ -293,3 +293,10 @@ footer a { display: inline-flex; min-height: 2.75rem; align-items: center; }
   .sight-photo { float: left; margin: .15rem .85rem .35rem 0; }
   .sight-copy { display: flow-root; }
 }
+
+.budget-conversion {
+  display: block;
+  color: var(--muted);
+  font-size: .875rem;
+  font-weight: 600;
+}
