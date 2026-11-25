@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="帛琉五天四夜自由行，包含科羅、洛克群島浮潛、瀑布和紅樹林，以及預算和入境準備。">
 <title>帛琉五天四夜自由行</title>
-<link rel="stylesheet" href="styles.css?v=overview-cleanup">
-<script src="navigation.js?v=packing" defer></script>
+<link rel="stylesheet" href="styles.css?v=booking-refresh">
+<script src="navigation.js?v=mobile-refine" defer></script>
 </head>
 <body id="top">
-<a class="skip" href="#itinerary">跳到每日行程</a>
+<a class="skip" href="#main-content">跳到目前內容</a>
 <header class="site-header">
   <div class="wrap">
     <div class="masthead">
@@ -18,7 +18,7 @@
     </div>
   </div>
 </header>
-<main class="wrap">
+<main class="wrap" id="main-content" tabindex="-1">
   <section class="overview" aria-labelledby="trip-title">
     <h1 id="trip-title">帛琉五天四夜自由行</h1>
     <p class="intro">洛克群島浮潛、本島瀑布、紅樹林獨木舟與博物館。</p>
@@ -55,11 +55,11 @@
 </div><p class="note">出海時間為規劃用。長沙灘能否登陸取決於潮汐。獨木舟可詢問是否有半日行程、最低成團人數及救生衣尺寸。館方營業日與售票時間建議出發前確認。 <a href="https://pristineparadisepalau.com/knowledge-base/?kbai_article_slug=what-to-know-before-visiting-palaus-rock-islands">洛克群島旅客指南</a> · <a href="https://www.paddlingpalau.net/day-tours.html">獨木舟業者</a> · <a href="https://www.etpisonmuseum.org/">Etpison Museum</a> · <a href="https://palaunationalmuseum.pw/">Belau National Museum</a></p></section>
 <section id="sights" aria-labelledby="sights-title">
 <h2 id="sights-title">景點導覽</h2>
-<details class="trip-map" open>
+<details class="trip-map">
   <summary>帛琉景點地圖</summary>
   <figure>
-    <a href="palau-map.png" target="_blank" rel="noopener">
-      <img src="palau-map.png" width="696" height="804" alt="帛琉景點示意圖。北島在北側，科羅與機場位於中部，洛克群島及浮潛點在科羅西南方，貝里琉與安格島在南端。">
+    <a href="palau-map.png" target="_blank" rel="noopener" aria-label="在新分頁開啟帛琉景點原圖">
+      <img src="palau-map.png" loading="lazy" width="696" height="804" alt="帛琉景點示意圖。北島在北側，科羅與機場位於中部，洛克群島及浮潛點在科羅西南方，貝里琉與安格島在南端。">
     </a>
     <figcaption>點選圖片，在新分頁開啟原圖放大查看。</figcaption>
   </figure>
@@ -139,8 +139,8 @@
       <h3>第 2 天停航怎麼辦？</h3>
       <p>先請船團確認能否改到第 3 或第 4 天。</p>
       <dl class="backup-options">
-        <div><dt>改第 3 天</dt><dd>把陸遊和洛克群島行程對調。</dd></div>
-        <div><dt>改第 4 天</dt><dd>用洛克群島行程替換獨木舟。</dd></div>
+        <div><dt>改第 3 天</dt><dd>把<a href="#day-3">陸遊</a>和洛克群島行程對調。</dd></div>
+        <div><dt>改第 4 天</dt><dd>用洛克群島行程替換<a href="#day-4">獨木舟</a>。</dd></div>
         <div><dt>仍無法出海</dt><dd>改逛科羅雙館，在市區吃午餐，再回住宿休息。</dd></div>
       </dl>
     </article>
@@ -178,9 +178,9 @@
   <div class="budget-ledger">
   <dl class="budget-grid">
     <div><dt>往返機票 <small>桃園－科羅經濟艙</small></dt><dd><strong>NT$16,000–24,000</strong></dd></div>
-    <div><dt>科羅住宿 <small>四晚，兩人分攤</small></dt><dd><strong>約 NT$5,760–9,600</strong><small>USD 180–300</small></dd></div>
+    <div><dt>科羅住宿 <small>四晚</small></dt><dd><strong>約 NT$5,760–9,600</strong><small>USD 180–300</small></dd></div>
     <div><dt>海上活動 <small>快艇浮潛、獨木舟導覽</small></dt><dd><strong>約 NT$5,760–9,600</strong><small>USD 180–300</small></dd></div>
-    <div><dt>當地交通 <small>機場接駁、陸遊包車分攤</small></dt><dd><strong>約 NT$2,240–4,160</strong><small>USD 70–130</small></dd></div>
+    <div><dt>當地交通 <small>機場接駁、陸遊包車</small></dt><dd><strong>約 NT$2,240–4,160</strong><small>USD 70–130</small></dd></div>
     <div><dt>餐飲</dt><dd><strong>約 NT$2,880–4,800</strong><small>USD 90–150</small></dd></div>
     <div><dt>許可與門票 <small>洛克群島、步道、博物館</small></dt><dd><strong>約 NT$2,240–4,480</strong><small>USD 70–140</small></dd></div>
   </dl>
@@ -189,40 +189,44 @@
   <div class="budget-footnote">
     <h3>環境費</h3>
     <p>USD 100（約 NT$3,200）。購票時確認票價是否已包含。 <a href="https://bcbp.pw/?page_id=165">帛琉移民機關</a></p>
-    <p>實際費用會隨住宿等級、旅遊日期及出團人數變動。</p>
   </div>
 </section>
 <section id="booking"><h2>訂位與出發前準備</h2>
+<nav class="booking-links" aria-label="行前快速跳轉">
+  <a href="#december-travel">12 月概況</a>
+  <a href="#reservations">訂位與入境</a>
+  <a href="#packing">行李清單</a>
+</nav>
 <div class="season-guide">
   <h3 id="december-travel">帛琉 12 月旅遊條件</h3>
-  <table aria-labelledby="december-travel">
-    <thead>
-      <tr><th scope="col">項目</th><th scope="col">12 月概況</th></tr>
-    </thead>
-    <tbody>
-      <tr><th scope="row">旅遊季節</th><td>乾季初期、旅遊旺季</td></tr>
-      <tr><th scope="row">白天氣溫</th><td>約 28–31°C</td></tr>
-      <tr><th scope="row">海水溫度</th><td>約 28–29°C</td></tr>
-      <tr><th scope="row">浮潛適合度</th><td><span role="img" aria-label="5 顆星，滿分 5 顆">★★★★★</span></td></tr>
-      <tr><th scope="row">水肺潛水</th><td><span role="img" aria-label="5 顆星，滿分 5 顆">★★★★★</span></td></tr>
-      <tr><th scope="row">風景攝影</th><td><span role="img" aria-label="5 顆星，滿分 5 顆">★★★★★</span></td></tr>
-      <tr><th scope="row">台灣直飛</th><td>約 4 小時</td></tr>
-      <tr><th scope="row">時差</th><td>比台灣快 1 小時</td></tr>
-      <tr><th scope="row">使用貨幣</th><td>美元 USD</td></tr>
-    </tbody>
-  </table>
-  <p class="note">星等為旅遊參考評價。水上活動以當天海況與業者安排為準。</p>
+  <p class="season-period">乾季初期 · 旅遊旺季</p>
+  <dl class="season-facts">
+    <div><dt>白天氣溫</dt><dd>約 28–31°C</dd></div>
+    <div><dt>海水溫度</dt><dd>約 28–29°C</dd></div>
+    <div><dt>台灣直飛</dt><dd>約 4 小時</dd></div>
+    <div><dt>當地時差</dt><dd>比台灣快 1 小時</dd></div>
+    <div><dt>使用貨幣</dt><dd>美元 USD</dd></div>
+  </dl>
+  <dl class="season-ratings">
+    <div><dt>浮潛</dt><dd><span aria-hidden="true">★★★★★</span><span class="sr-only">5 顆星</span></dd></div>
+    <div><dt>水肺潛水</dt><dd><span aria-hidden="true">★★★★★</span><span class="sr-only">5 顆星</span></dd></div>
+    <div><dt>風景攝影</dt><dd><span aria-hidden="true">★★★★★</span><span class="sr-only">5 顆星</span></dd></div>
+  </dl>
 </div>
-<h3 class="booking-heading">訂位與出發清單</h3>
-<ol><li><strong>訂機票與四晚住宿。</strong>先確認第 1 天抵達、第 5 天出發，並把航班號與抵達時間交給飯店安排雙程接駁。</li>
+<h3 class="booking-heading" id="reservations">訂位與出發清單</h3>
+<ol class="reservation-steps"><li><strong>訂機票與四晚住宿。</strong>先確認第 1 天抵達、第 5 天出發，並把航班號與抵達時間交給飯店安排雙程接駁。</li>
 <li><strong>訂海上活動與陸遊。</strong>優先鎖定第 2 天船團，再訂第 3 天包車與第 4 天獨木舟。付款前確認海況取消與改期條款、接送、餐飲、裝備與門票。若需要中文導覽，訂位時確認。</li>
 <li><strong>準備入境文件。</strong>以台灣護照為例，出發前核對護照至少還有六個月效期及持有回程機票，並在起飛前 72 小時內依官方指示填寫 Palau Entry Form，保存完成後的 QR Code。其他護照請查對應規定。 <a href="https://bcbp.pw/?page_id=165">帛琉入境規定</a> · <a href="https://www.palautravel.pw/">Palau Entry Form</a></li>
 <li><strong>整理裝備。</strong>帶防磨衣、防水袋、止滑鞋、可重複使用的水瓶、美元零鈔，並核對旅遊保險是否涵蓋浮潛與獨木舟。</li>
 </ol>
 <h3 class="booking-heading" id="packing">行李清單</h3>
-<div class="packing-list" aria-labelledby="packing">
+<div class="packing-progress" hidden>
+  <output id="packing-count" aria-live="polite"></output>
+  <progress id="packing-meter" aria-label="行李打包進度" value="0"></progress>
+</div>
+<div class="packing-list" role="group" aria-labelledby="packing">
   <fieldset><legend>證件與付款</legend>
-    <label><input type="checkbox" name="passport"><span>護照 <small class="packing-note">（入境帛琉時須至少剩 6 個月效期，適用台灣護照）</small></span></label>
+    <label><input type="checkbox" name="passport"><span>護照 <small class="packing-note">入境帛琉時須至少剩 6 個月效期（台灣護照）</small></span></label>
     <label><input type="checkbox" name="entry-qr"><span>入境表 QR Code（離線截圖）</span></label>
     <label><input type="checkbox" name="bookings"><span>回程機票、住宿與活動訂位資料</span></label>
     <label><input type="checkbox" name="payment"><span>美元小額現金與信用卡</span></label>
@@ -248,7 +252,7 @@
   </fieldset>
 </div>
 </section>
-<footer><a id="back-to-top" href="#top">回到頁首</a></footer>
+<footer><a id="back-to-top" href="#top"><span aria-hidden="true">↑</span> 回到頁首</a></footer>
 </main>
 <div class="bottom-bar">
     <nav class="tabs wrap" aria-label="頁面導覽">
