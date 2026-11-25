@@ -805,3 +805,5 @@ a, button, input, summary { scroll-margin-bottom: .45rem; }
 @media (max-width: 22rem) {
   .water-site-photos li { grid-template-columns: minmax(0, 6rem) minmax(0, 1fr); }
 }
+
+.day-spot-list > div > .spot-copy:only-child { grid-column: 1 / -1; }
