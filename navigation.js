@@ -2,11 +2,23 @@ const isEnglish = document.documentElement.lang === 'en';
 const languageLinks = [...document.querySelectorAll('.language-switch a')];
 
 function syncLanguageLinks() {
-  for (const link of languageLinks) link.hash = location.hash;
+  for (const link of languageLinks) {
+    link.hash = location.hash;
+    link.search = location.search;
+  }
 }
 
 window.addEventListener('hashchange', syncLanguageLinks);
 syncLanguageLinks();
+for (const link of languageLinks) {
+  link.addEventListener('click', () => {
+    try {
+      localStorage.setItem(languagePreferenceKey, link.hreflang);
+    } catch {
+      // The language link works without saving a preference.
+    }
+  });
+}
 
 const tabs = [...document.querySelectorAll('.tabs a')];
 const sections = new Map(tabs.map(tab => [
@@ -17,6 +29,15 @@ const overview = document.querySelector('.overview');
 const backToTop = document.querySelector('#back-to-top');
 const dayLinks = [...document.querySelectorAll('.jump a')];
 const main = document.querySelector('main');
+const defaultTitle = document.title;
+
+function hashDestination() {
+  try {
+    return document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  } catch {
+    return null;
+  }
+}
 let activeSection;
 
 function focusContent(element) {
@@ -25,10 +46,14 @@ function focusContent(element) {
 }
 
 function showTopic(focusOnChange = false) {
-  const target = document.getElementById(location.hash.slice(1));
+  const target = hashDestination();
   const section = target?.closest('main > section[id]');
   const topic = target === main ? activeSection || '#itinerary' : section ? '#' + section.id : '#itinerary';
   const panel = sections.get(topic);
+  const heading = panel.querySelector('h2');
+  const dayTitle = target?.matches('.days article') ? target.querySelector('h3').textContent : '';
+  const topicTitle = dayTitle || (topic === '#itinerary' ? '' : heading.textContent);
+  document.title = topicTitle ? `${topicTitle} | ${defaultTitle}` : defaultTitle;
 
   for (const [hash, panel] of sections) {
     panel.hidden = hash !== topic;
@@ -41,7 +66,7 @@ function showTopic(focusOnChange = false) {
     }
   }
   for (const link of dayLinks) {
-    if (link.hash === location.hash) {
+    if (link.hash === '#' + target?.id) {
       link.setAttribute('aria-current', 'location');
     } else {
       link.removeAttribute('aria-current');
@@ -55,7 +80,7 @@ function showTopic(focusOnChange = false) {
     if (focusOnChange) focusContent(target);
   } else if (topic !== activeSection || target) {
     window.scrollTo(0, 0);
-    if (focusOnChange) focusContent(panel.querySelector('h2'));
+    if (focusOnChange) focusContent(heading);
   }
   activeSection = topic;
 }
@@ -65,14 +90,20 @@ backToTop.addEventListener('click', event => {
   window.scrollTo(0, 0);
   focusContent(document.querySelector('.brand'));
 });
-for (const tab of tabs) {
-  tab.addEventListener('click', event => {
-    if (location.hash === tab.hash && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
-      event.preventDefault();
-      showTopic(true);
-    }
-  });
-}
+document.querySelector('.skip').addEventListener('click', event => {
+  event.preventDefault();
+  const content = sections.get(activeSection);
+  content.scrollIntoView();
+  focusContent(content.querySelector('h2'));
+});
+document.addEventListener('click', event => {
+  if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const link = event.target.closest('a[href^="#"]');
+  if (link && link.hash === location.hash) {
+    event.preventDefault();
+    showTopic(true);
+  }
+});
 window.addEventListener('hashchange', () => showTopic(true));
 showTopic();
 
@@ -82,13 +113,14 @@ const packingCount = document.querySelector('#packing-count');
 const packingMeter = document.querySelector('#packing-meter');
 const packingFilter = document.querySelector('#packing-unpacked');
 const packingDone = document.querySelector('#packing-done');
+const packingGroups = [...document.querySelectorAll('.packing-list fieldset')];
 
 function filterPackingItems() {
   for (const item of packingItems) {
     const label = item.closest('label');
     label.hidden = packingFilter.checked && item.checked;
   }
-  for (const group of document.querySelectorAll('.packing-list fieldset')) {
+  for (const group of packingGroups) {
     group.hidden = !group.querySelector('label:not([hidden])');
   }
 }
@@ -101,6 +133,14 @@ function updatePackingProgress() {
   packingMeter.max = packingItems.length;
   packingMeter.value = checkedItems.length;
   packingCount.parentElement.hidden = false;
+  for (const group of packingGroups) {
+    const count = group.querySelector('.packing-group-count');
+    const total = group.querySelectorAll('input').length;
+    const packed = group.querySelectorAll('input:checked').length;
+    count.textContent = `${packed}/${total}`;
+    count.hidden = false;
+    count.setAttribute('aria-label', isEnglish ? `${packed} of ${total} packed` : `已打包 ${packed}／${total} 項`);
+  }
   packingDone.hidden = checkedItems.length !== packingItems.length;
   filterPackingItems();
   return checkedItems;
@@ -122,7 +162,20 @@ restorePackingItems();
 window.addEventListener('storage', event => {
   if (event.key === packingStorageKey || event.key === null) restorePackingItems();
 });
-packingFilter.addEventListener('change', filterPackingItems);
+try {
+  packingFilter.checked = sessionStorage.getItem('travelpalau:unpacked') === '1';
+  filterPackingItems();
+} catch {
+  // The filter works without session storage.
+}
+packingFilter.addEventListener('change', () => {
+  filterPackingItems();
+  try {
+    sessionStorage.setItem('travelpalau:unpacked', packingFilter.checked ? '1' : '0');
+  } catch {
+    // The filter still applies to the current page.
+  }
+});
 document.querySelector('.packing-list').addEventListener('change', event => {
   const checkedItems = updatePackingProgress();
   if (event.target.closest('label').hidden) {
@@ -177,23 +230,13 @@ function resetSights() {
 }
 
 sightQuery.closest('.sight-tools').hidden = false;
-sightQuery.addEventListener('input', filterSights);
+sightQuery.addEventListener('input', event => {
+  if (!event.isComposing) filterSights();
+});
+sightQuery.addEventListener('compositionend', filterSights);
 sightQuery.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !event.isComposing) resetSights();
 });
 onTrip.addEventListener('change', filterSights);
 clearSightQuery.addEventListener('click', resetSights);
 filterSights();
-
-const printTopic = document.querySelector('#print-topic');
-let expandedForPrint = [];
-printTopic.hidden = false;
-printTopic.addEventListener('click', () => window.print());
-window.addEventListener('beforeprint', () => {
-  expandedForPrint = [...document.querySelectorAll('section:not([hidden]) details:not([open])')];
-  expandedForPrint.forEach(details => details.open = true);
-});
-window.addEventListener('afterprint', () => {
-  expandedForPrint.forEach(details => details.open = false);
-  expandedForPrint = [];
-});

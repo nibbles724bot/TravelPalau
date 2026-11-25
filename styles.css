@@ -535,18 +535,6 @@ footer a { gap: .35rem; }
 }
 .sight-tools .sight-filter input { width: 1.1rem; min-height: auto; accent-color: var(--accent); }
 footer { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
-#print-topic {
-  min-height: 2.75rem;
-  padding-inline: .7rem;
-  border: 1px solid var(--line);
-  border-radius: .5rem;
-  background: var(--surface);
-  color: var(--accent);
-  font: inherit;
-  cursor: pointer;
-}
-#print-topic:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
 @media print {
   body { padding: 0; background: #fff; color: #111; }
   .wrap { width: 100%; }
@@ -579,3 +567,38 @@ footer { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
 @media print {
   .language-switch { display: none; }
 }
+
+html { scroll-padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px)); }
+.site-header { padding-top: env(safe-area-inset-top, 0px); }
+.packing-group-count {
+  margin-inline-start: .25rem;
+  color: var(--muted);
+  font-size: .875rem;
+  font-variant-numeric: tabular-nums;
+}
+.packing-list label > span { min-width: 0; overflow-wrap: anywhere; }
+.sight-tools input[type="search"] { font-size: 1rem; }
+.language-switch a, .tabs a, .jump a { -webkit-tap-highlight-color: #41458b22; }
+
+@media (forced-colors: active) {
+  .tabs a[aria-current="page"], .jump a[aria-current="location"], .language-switch a[aria-current="page"] {
+    outline: 1px solid Highlight;
+    outline-offset: -2px;
+  }
+}
+
+.community-shortcut {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-weight: 650;
+}
+.community-intro { margin: 0; padding: 0 .9rem .75rem; color: var(--muted); }
+.community-stories { display: grid; gap: .6rem; padding: 0 .75rem .75rem; }
+.community-stories article { border: 1px solid var(--line); box-shadow: none; }
+.community-stories article time { display: block; margin-bottom: .2rem; color: var(--muted); font-size: .875rem; }
+.community-stories article h3 { font-size: 1.125rem; }
+.community-stories article > p { margin: .45rem 0 .65rem; }
+.community-stories article > a { display: inline-flex; align-items: center; min-height: 2.75rem; margin-inline-end: .6rem; }
+.conversation { padding: .65rem .75rem; border-inline-start: 2px solid #54746d; background: #edf5f3; }
+.conversation p { margin: .15rem 0 0; }
