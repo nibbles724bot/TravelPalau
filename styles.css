@@ -271,7 +271,7 @@ footer a { display: inline-flex; min-height: 2.75rem; align-items: center; }
   padding: .15rem 0 .9rem;
   border-bottom: 2px solid #c5dcd7;
 }
-.budget-total strong {
+.budget-total > strong {
   display: block;
   color: #164e49;
   font-size: clamp(1.7rem, 7vw, 2.65rem);
@@ -410,7 +410,6 @@ body {
 footer a { gap: .35rem; }
 
 @media (max-width: 22rem) {
-  .budget-grid > div, .budget-subtotal > div { grid-template-columns: minmax(0, 1fr) minmax(0, 56%); }
 }
 
 .season-guide {
@@ -713,7 +712,32 @@ a, button, input, summary { scroll-margin-bottom: .45rem; }
 #flight-date-match, .flight-match { background: #edf5f3; }
 #flight-date-match { padding: .5rem .65rem; border-radius: .45rem; }
 .season-caution { font-size: .9375rem; color: var(--muted); }
-.budget-total .fee-qualifier { border-inline-start: 2px solid #54746d; padding-inline-start: .5rem; }
+.budget-total .fee-qualifier {
+  width: fit-content;
+  margin-top: .8rem;
+  padding: .55rem .75rem;
+  border-radius: .5rem;
+  background: #edf5f3;
+}
+.fee-qualifier strong { color: #164e49; }
+
+@media (max-width: 36rem) {
+  #budget .budget-heading { display: block; }
+  #budget .budget-heading p { margin-top: .2rem; }
+  .budget-grid > div, .budget-subtotal > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: .35rem;
+    padding: .8rem .95rem;
+  }
+  .budget-grid dd, .budget-subtotal dd {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .1rem .65rem;
+    text-align: start;
+  }
+  .budget-grid dd small, .budget-subtotal dd small { margin: 0; }
+}
 
 .tide-disclaimer { grid-column: 1 / -1; color: var(--muted); font-size: .875rem; }
 .flight-guide tbody .flight-match { background: #e2f0e9; }
