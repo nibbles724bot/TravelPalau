@@ -380,3 +380,36 @@ footer a { display: inline-flex; min-height: 2.75rem; align-items: center; }
 @media (min-width: 46rem) {
   .budget-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+.backup-grid { display: grid; gap: .85rem; }
+.backup-grid article { padding: 1rem clamp(1rem, 3vw, 1.5rem); }
+.backup-grid article p { margin: .5rem 0 0; }
+.backup-grid article > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-top: .25rem;
+}
+.backup-grid .backup-plan {
+  border-color: #d6e4dd;
+  background: #eef6f0;
+}
+.backup-grid dl { padding: 0; }
+.backup-options dt { color: #195d54; }
+.permit-prices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .5rem;
+}
+.backup-grid .permit-prices > div {
+  display: block;
+  padding: .55rem .65rem;
+  border: 0;
+  border-radius: .55rem;
+  background: var(--tint);
+}
+.permit-prices dd { font-weight: 750; font-variant-numeric: tabular-nums; }
+
+@media (min-width: 46rem) {
+  .backup-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
