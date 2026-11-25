@@ -655,3 +655,9 @@ a, button, input, summary { scroll-margin-bottom: .45rem; }
 .flight-guide tbody th { white-space: nowrap; }
 .flight-guide tbody th small { white-space: normal; }
 #day-view-status { min-width: 0; overflow-wrap: anywhere; }
+
+.day-spot-list { display: grid; gap: .6rem; padding: 0 .9rem .8rem; }
+.day-spot-list > div + div { padding-top: .6rem; border-top: 1px solid var(--line); }
+.day-spot-list h3 { font-size: 1.05rem; }
+.day-spot-list p { margin: .3rem 0 0; }
+.day-spot-list a { display: inline-flex; align-items: center; min-height: 2.75rem; }
