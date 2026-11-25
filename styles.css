@@ -782,3 +782,26 @@ a, button, input, summary { scroll-margin-bottom: .45rem; }
 @media (max-width: 22rem) {
   .schedule-actions button { flex: 1 1 auto; }
 }
+
+.travel-reference > .water-site-photos {
+  display: grid;
+  gap: .85rem;
+  padding: 0 .9rem .75rem;
+  list-style: none;
+}
+.water-site-photos li {
+  display: grid;
+  grid-template-columns: minmax(0, 8.25rem) minmax(0, 1fr);
+  gap: .55rem .8rem;
+  max-width: none;
+  margin: 0;
+  padding: .7rem 0 0;
+  border-top: 1px solid var(--line);
+}
+.water-site-photos figure { margin: 0; padding: 0; }
+.water-site-photos img { aspect-ratio: 4 / 3; object-fit: cover; }
+.water-site-photos figcaption { margin-top: .25rem; color: var(--muted); text-align: start; font-size: .75rem; }
+.water-site-photos figcaption a { display: inline; }
+@media (max-width: 22rem) {
+  .water-site-photos li { grid-template-columns: minmax(0, 6rem) minmax(0, 1fr); }
+}

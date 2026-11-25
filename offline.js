@@ -1,12 +1,13 @@
-const CACHE = 'travelpalau-guide-v2';
+const CACHE = 'travelpalau-guide-v3';
 const scope = new URL(self.registration.scope);
 const core = [
-  'index.html', 'en.html', 'styles.css?v=trip-mobile', 'navigation.js?v=trip-mobile',
+  'index.html', 'en.html', 'styles.css?v=water-photos', 'navigation.js?v=trip-mobile',
   'language.js?v=travel-access', 'palau-map.png',
   'assets/rock-islands.webp', 'assets/scenic-flight.webp', 'assets/milky-way.webp',
   'assets/jellyfish-lake.webp', 'assets/long-beach.webp', 'assets/big-drop-off.webp',
   'assets/german-channel.webp', 'assets/kayangel.webp', 'assets/nikko-bay.webp',
-  'assets/ngardmau-waterfall.webp', 'assets/etpison-museum.jpg', 'assets/chandelier-cave.jpg'
+  'assets/ngardmau-waterfall.webp', 'assets/etpison-museum.jpg', 'assets/chandelier-cave.jpg',
+  'assets/blue-corner.jpg', 'assets/blue-holes.jpg', 'assets/reef-shark.jpg', 'assets/giant-clam.jpg'
 ];
 const coreUrls = new Set(core.map(path => new URL(path, scope).href));
 
