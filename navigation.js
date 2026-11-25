@@ -38,3 +38,26 @@ backToTop.addEventListener('click', event => {
 });
 window.addEventListener('hashchange', showTopic);
 showTopic();
+
+const packingStorageKey = 'travelpalau:packing';
+const packingItems = [...document.querySelectorAll('.packing-list input')];
+
+try {
+  const savedItems = JSON.parse(localStorage.getItem(packingStorageKey) || '[]');
+  if (Array.isArray(savedItems)) {
+    for (const item of packingItems) {
+      item.checked = savedItems.includes(item.name);
+    }
+  }
+} catch {
+  // The checklist still works when browser storage is unavailable.
+}
+
+document.querySelector('.packing-list')?.addEventListener('change', () => {
+  const checkedItems = packingItems.filter(item => item.checked).map(item => item.name);
+  try {
+    localStorage.setItem(packingStorageKey, JSON.stringify(checkedItems));
+  } catch {
+    // The current page keeps its checkmarks even without storage.
+  }
+});
