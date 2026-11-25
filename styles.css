@@ -1,0 +1,51 @@
+:root {
+  color-scheme: light;
+  --ink: #132d2d;
+  --muted: #46605e;
+  --accent: #08665e;
+  --line: #c5d7d0;
+  --sand: #f3f5ee;
+  font: 100%/1.75 system-ui, "PingFang TC", "Noto Sans TC", sans-serif;
+  color: var(--ink);
+  background: var(--sand);
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+.wrap { width: min(100% - 3rem, 68rem); margin-inline: auto; }
+header { background: #113f42; color: #fff; }
+nav { display: flex; flex-wrap: wrap; gap: .55rem 1.5rem; }
+header nav { padding-block: 1rem; border-bottom: 1px solid #72928d; }
+a { color: var(--accent); text-underline-offset: .22em; }
+header a { color: #d8f5ef; }
+nav a { font-weight: 650; }
+a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+.hero { padding-block: clamp(2.5rem, 7vw, 6rem); }
+.route { color: #bef1e3; font-weight: 700; letter-spacing: .12em; }
+.route span { margin-inline-start: 1rem; letter-spacing: normal; }
+h1 { margin: .55rem 0 1.25rem; font-size: clamp(2.25rem, 7vw, 5.5rem); line-height: 1.15; }
+.intro { max-width: 42rem; margin-bottom: 0; }
+.jump { padding-block: 1.25rem; border-bottom: 1px solid var(--line); }
+section { padding-block: 2.25rem; border-bottom: 1px solid var(--line); }
+section:last-child { border: 0; }
+h2 { font-size: clamp(1.55rem, 3vw, 2.15rem); margin: 0 0 1rem; }
+h3 { font-size: 1.35rem; margin: 0 0 .8rem; }
+.days { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+article { padding: 1.25rem; background: #fff; border-top: 3px solid var(--accent); }
+article:last-child { grid-column: 1 / -1; }
+.day { margin: 0; font-weight: 700; color: var(--accent); }
+dl { margin: 0; }
+dl div { display: grid; grid-template-columns: 2.5rem 1fr; gap: .65rem; padding-block: .45rem; }
+dl div + div { border-top: 1px solid var(--line); }
+dt { color: var(--muted); font-weight: 700; }
+dd { margin: 0; }
+li + li { margin-top: .65rem; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { padding: .65rem .85rem; text-align: left; border-bottom: 1px solid var(--line); }
+thead { background: #e0eee7; }
+tbody th { font-weight: 500; }
+td { white-space: nowrap; }
+@media (max-width: 42rem) {
+  .wrap { width: calc(100% - 2rem); }
+  .days { grid-template-columns: 1fr; }
+  th, td { padding-inline: .5rem; }
+}
