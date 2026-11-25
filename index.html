@@ -21,8 +21,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f3f4f8">
 <script src="language.js?v=travel-access"></script>
-<link rel="stylesheet" href="styles.css?v=budget-spacing">
-<script src="navigation.js?v=trip-ready" defer></script>
+<link rel="stylesheet" href="styles.css?v=trip-mobile">
+<script src="navigation.js?v=trip-mobile" defer></script>
 </head>
 <body id="top">
 <a class="skip" href="#main-content">跳到目前內容</a>
@@ -57,13 +57,18 @@
 <nav class="jump" aria-label="按天前往"><a href="#day-1">第 1 天</a><a href="#day-2">第 2 天</a><a href="#day-3">第 3 天</a><a href="#day-4">第 4 天</a><a href="#day-5">第 5 天</a></nav>
 <div class="departure-plan" hidden>
   <label for="departure-date">出發日</label>
-  <input id="departure-date" type="date" min="2000-01-01" max="2099-12-27" aria-describedby="departure-status">
+  <input id="departure-date" type="date" autocomplete="off" min="2000-01-01" max="2099-12-27" aria-describedby="departure-status">
   <p id="departure-status" role="status"></p>
+  <button type="button" id="clear-departure" hidden>清除出發日</button>
   <small class="tide-disclaimer">NOAA 為 Malakal 港潮汐預報。長沙灘等停靠點請由船團依當地潮汐與海況判斷。</small>
   <a href="#direct-flights">對照去程班表</a>
 </div>
 <div class="itinerary-controls" hidden>
-  <label><input type="checkbox" id="single-day" aria-controls="day-list" aria-describedby="day-view-status"> 一次只看一天</label>
+  <div class="schedule-actions" role="group" aria-label="每日行程展開控制" hidden>
+    <button type="button" data-schedule-open="true" aria-controls="day-list">展開五天</button>
+    <button type="button" data-schedule-open="false" aria-controls="day-list">收起五天</button>
+  </div>
+  <label><input type="checkbox" id="single-day" autocomplete="off" aria-controls="day-list" aria-describedby="day-view-status"> 一次只看一天</label>
   <output id="day-view-status" aria-live="polite"></output>
 </div>
 <div class="days" id="day-list"><article id="day-1" aria-labelledby="day-1-label day-1-title">
@@ -75,7 +80,7 @@
 <article id="day-2" aria-labelledby="day-2-label day-2-title">
 <details class="day-schedule"><summary class="day-heading"><h3><span class="day" id="day-2-label">第 2 天</span><span id="day-2-title">洛克群島浮潛</span><time class="day-date" data-day-offset="1" hidden></time></h3></summary>
 <dl><div><dt>上午</dt><dd>約 <time datetime="08:00">08:00</time>–<time datetime="09:00">09:00</time> 由科羅出發，搭快艇進洛克群島南潟湖。優先停靠黃金水母湖（Ongeim’l Tketau）。出發前向船團確認是否封閉，並取得含水母湖的許可，再依時間與海況安排牛奶湖和一處適合初學者的淺礁</dd></div><div><dt>下午</dt><dd>午餐後依潮汐安排長沙灘或第二處浮潛點，約 <time datetime="16:00">16:00</time>–<time datetime="17:00">17:00</time> 回科羅</dd></div><div><dt>晚上</dt><dd>市區晚餐，休息</dd></div></dl>
-<nav class="day-actions" aria-label="第 2 天相關連結"><a data-tide-day="2" href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1841367">潮汐參考</a><a href="#sights-map">景點地圖</a><a href="#day-1">第 1 天</a><a href="#alternatives">出海備案</a><a href="#day-3">第 3 天</a></nav>
+<nav class="day-actions" aria-label="第 2 天相關連結"><a href="#jellyfish-lake">水母湖景點</a><a data-tide-day="2" href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1841367">潮汐參考</a><a href="#sights-map">景點地圖</a><a href="#day-1">第 1 天</a><a href="#alternatives">出海備案</a><a href="#day-3">第 3 天</a></nav>
 </details>
 </article>
 <article id="day-3" aria-labelledby="day-3-label day-3-title">
@@ -177,7 +182,7 @@
     <label class="sight-filter"><input type="checkbox" id="sights-on-trip" aria-controls="sight-results">只看有行程連結</label>
     <label class="sight-filter"><input type="checkbox" id="sights-saved" aria-controls="sight-results">只看已收藏</label>
     <p id="sight-count" role="status" aria-atomic="true"></p>
-    <button type="button" id="clear-sight-query" hidden>清除搜尋與篩選</button>
+    <button type="button" id="clear-sight-query" aria-controls="sight-results" hidden>清除搜尋與篩選</button>
   </div>
   <ol id="sight-results" aria-label="景點搜尋結果">
     <li value="1" id="rock-islands">
@@ -291,11 +296,16 @@
   <a href="#packing">行李清單</a>
   <a href="#travel-essentials">實用須知</a>
   <a href="#tour-contacts">業者聯絡</a>
+  <a href="#emergency">緊急聯絡</a>
 </nav>
-<details class="trip-map travel-reference" id="travel-essentials"><summary>實用須知</summary><ul><li><h4>防曬禁令</h4><p>帛琉禁止攜入或使用含違禁成分的防曬。依官方清單核對成分，可選氧化鋅或二氧化鈦為主要防曬成分的合規產品，多帶一罐備用。 <a href="https://www.palaugov.pw/wp-content/uploads/2020/03/Sunscreen-Regulations-2020.pdf">帛琉防曬規範</a></p></li>
-<li><h4>Palau Pledge</h4><p>入境時在護照上簽署承諾，尊重帛琉的生態、文化與社區。 <a href="https://palaupledge.com/">承諾內容</a></p></li>
-<li><h4>緊急電話與醫療</h4><p>當地緊急電話 <a href="tel:911">911</a>。Belau National Hospital 位於科羅的 Meyuns，急診 <a href="tel:+6804882558">+680 488 2558</a>。嚴重傷病可能需要轉送。 <a href="https://www.palaugov.pw/phone-numbers/">政府電話簿</a></p></li>
-<li><h4>上網、eSIM 與 SIM</h4><p>科羅和 Airai 的行動網路較好，離島和船上訊號不穩。辦公前先詢問飯店 Wi‑Fi；PNCC 科羅門市可辦預付 eSIM，科羅與 Airai 門市有實體 SIM。出海前下載地圖、入境 QR Code 和訂位資料。 <a href="https://www.pnccpalau.com/visitors">PNCC 旅客方案與門市</a></p></li>
+<div class="offline-tools" role="group" aria-label="離線行程" hidden>
+  <button type="button" id="prepare-offline" aria-describedby="offline-state">儲存離線行程</button>
+  <p id="offline-state" role="status"></p>
+</div>
+<details class="trip-map travel-reference" id="travel-essentials"><summary>實用須知</summary><ul><li><h4 id="sunscreen-rules">防曬禁令</h4><p>帛琉禁止攜入或使用含違禁成分的防曬。依官方清單核對成分，可選氧化鋅或二氧化鈦為主要防曬成分的合規產品，多帶一罐備用。 <a href="https://www.palaugov.pw/wp-content/uploads/2020/03/Sunscreen-Regulations-2020.pdf">帛琉防曬規範</a></p></li>
+<li><h4 id="entry-pledge">Palau Pledge</h4><p>入境時在護照上簽署承諾，尊重帛琉的生態、文化與社區。 <a href="https://palaupledge.com/">承諾內容</a></p></li>
+<li id="emergency"><h4>緊急電話與醫療</h4><p>當地緊急電話 <a href="tel:911">911</a>。Belau National Hospital 位於科羅的 Meyuns，急診 <a href="tel:+6804882558">+680 488 2558</a>。嚴重傷病可能需要轉送。 <a href="https://www.palaugov.pw/phone-numbers/">政府電話簿</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=Belau%20National%20Hospital%20Meyuns%20Palau">醫院地圖</a></p></li>
+<li><h4 id="mobile-data">上網、eSIM 與 SIM</h4><p>科羅和 Airai 的行動網路較好，離島和船上訊號不穩。辦公前先詢問飯店 Wi‑Fi；PNCC 科羅門市可辦預付 eSIM，科羅與 Airai 門市有實體 SIM。出海前下載地圖、入境 QR Code 和訂位資料。 <a href="https://www.pnccpalau.com/visitors">PNCC 旅客方案與門市</a></p></li>
 <li><h4>插座與電壓</h4><p>帛琉是美規 Type A／B、120 V／60 Hz。相同插型且標示 100–240 V 的台灣手機、筆電充電器通常可直接使用；只標 110 V 的電器先確認相容性。 <a href="https://www.palauconsulate.be/index.php/en/about-palau">帛琉領事館資料</a></p></li>
 <li><h4>信用卡與美元</h4><p>飯店和多數觀光商家可刷主要信用卡。小店可能只收現金，請備小額美元，並先問船團是否可刷卡及有無手續費。 <a href="https://travel.gc.ca/destinations/palau">加拿大旅遊資訊</a></p></li>
 <li><h4>租水底相機</h4><p>可向 Splash 詢問水底相機租借，先確認日期、庫存、防水殼、記憶卡、押金及影像交付方式。 <a href="https://www.splash-palau.com/en/about/splash.html">Splash 租借服務</a></p></li></ul></details>
@@ -372,10 +382,11 @@
     <label><input type="checkbox" name="clothes"><span>輕便衣物、內衣襪</span></label>
     <label><input type="checkbox" name="toiletries"><span>盥洗用品</span></label>
     <label><input type="checkbox" name="repellent"><span>防蚊液</span></label>
-    <label><input type="checkbox" name="reef-sunscreen"><span>珊瑚礁友善防曬，多帶一罐備用 <a href="#travel-essentials">看成分限制</a></span></label>
+    <label><input type="checkbox" name="reef-sunscreen"><span>珊瑚礁友善防曬，多帶一罐備用</span></label>
     <label><input type="checkbox" name="underwater-camera"><span>確認水底相機租借、庫存和防水殼</span></label>
   </fieldset>
 </div>
+<p class="packing-help"><a href="#sunscreen-rules">查看防曬成分限制</a></p>
 </section>
 <footer>
 <a id="back-to-top" href="#top"><span aria-hidden="true">↑</span> 回到頁首</a></footer>

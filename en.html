@@ -21,8 +21,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f3f4f8">
 <script src="language.js?v=travel-access"></script>
-<link rel="stylesheet" href="styles.css?v=budget-spacing">
-<script src="navigation.js?v=trip-ready" defer></script>
+<link rel="stylesheet" href="styles.css?v=trip-mobile">
+<script src="navigation.js?v=trip-mobile" defer></script>
 </head>
 <body id="top">
 <a class="skip" href="#main-content">Skip to current content</a>
@@ -57,13 +57,18 @@
 <nav class="jump" aria-label="Jump to a day"><a href="#day-1">Day 1</a><a href="#day-2">Day 2</a><a href="#day-3">Day 3</a><a href="#day-4">Day 4</a><a href="#day-5">Day 5</a></nav>
 <div class="departure-plan" hidden>
   <label for="departure-date">Departure date</label>
-  <input id="departure-date" type="date" min="2000-01-01" max="2099-12-27" aria-describedby="departure-status">
+  <input id="departure-date" type="date" autocomplete="off" min="2000-01-01" max="2099-12-27" aria-describedby="departure-status">
   <p id="departure-status" role="status"></p>
+  <button type="button" id="clear-departure" hidden>Clear departure date</button>
   <small class="tide-disclaimer">NOAA predictions are for Malakal Harbor. Let your boat operator assess local tides and sea conditions for Long Beach and other stops.</small>
   <a href="#direct-flights">Compare outbound flights</a>
 </div>
 <div class="itinerary-controls" hidden>
-  <label><input type="checkbox" id="single-day" aria-controls="day-list" aria-describedby="day-view-status"> Show one day at a time</label>
+  <div class="schedule-actions" role="group" aria-label="Daily schedule controls" hidden>
+    <button type="button" data-schedule-open="true" aria-controls="day-list">Expand all days</button>
+    <button type="button" data-schedule-open="false" aria-controls="day-list">Collapse all days</button>
+  </div>
+  <label><input type="checkbox" id="single-day" autocomplete="off" aria-controls="day-list" aria-describedby="day-view-status"> Show one day at a time</label>
   <output id="day-view-status" aria-live="polite"></output>
 </div>
 <div class="days" id="day-list"><article id="day-1" aria-labelledby="day-1-label day-1-title">
@@ -75,7 +80,7 @@
 <article id="day-2" aria-labelledby="day-2-label day-2-title">
 <details class="day-schedule"><summary class="day-heading"><h3><span class="day" id="day-2-label">Day 2</span><span id="day-2-title">Rock Islands snorkeling</span><time class="day-date" data-day-offset="1" hidden></time></h3></summary>
 <dl><div><dt>Morning</dt><dd>Around <time datetime="08:00">08:00</time>–<time datetime="09:00">09:00</time>, depart Koror by speedboat for the Rock Islands Southern Lagoon. Make Jellyfish Lake (Ongeim’l Tketau) the priority stop. Confirm it is open before departure and obtain the Jellyfish Lake permit. Visit Milky Way and a shallow reef if time and conditions allow.</dd></div><div><dt>Afternoon</dt><dd>After lunch, visit Long Beach or a second snorkeling site, depending on the tide. Return to Koror around <time datetime="16:00">16:00</time>–<time datetime="17:00">17:00</time>.</dd></div><div><dt>Evening</dt><dd>Have dinner in town and rest.</dd></div></dl>
-<nav class="day-actions" aria-label="Day 2 links"><a data-tide-day="2" href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1841367">Tide reference</a><a href="#sights-map">Sightseeing map</a><a href="#day-1">Day 1</a><a href="#alternatives">Boat tour alternatives</a><a href="#day-3">Day 3</a></nav>
+<nav class="day-actions" aria-label="Day 2 links"><a href="#jellyfish-lake">Jellyfish Lake sight</a><a data-tide-day="2" href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1841367">Tide reference</a><a href="#sights-map">Sightseeing map</a><a href="#day-1">Day 1</a><a href="#alternatives">Boat tour alternatives</a><a href="#day-3">Day 3</a></nav>
 </details>
 </article>
 <article id="day-3" aria-labelledby="day-3-label day-3-title">
@@ -177,7 +182,7 @@
     <label class="sight-filter"><input type="checkbox" id="sights-on-trip" aria-controls="sight-results">Only show itinerary-linked attractions</label>
     <label class="sight-filter"><input type="checkbox" id="sights-saved" aria-controls="sight-results">Saved only</label>
     <p id="sight-count" role="status" aria-atomic="true"></p>
-    <button type="button" id="clear-sight-query" hidden>Clear search and filters</button>
+    <button type="button" id="clear-sight-query" aria-controls="sight-results" hidden>Clear search and filters</button>
   </div>
   <ol id="sight-results" aria-label="Attraction results">
     <li value="1" id="rock-islands">
@@ -291,11 +296,16 @@
   <a href="#packing">Packing checklist</a>
   <a href="#travel-essentials">Travel essentials</a>
   <a href="#tour-contacts">Contacts</a>
+  <a href="#emergency">Emergency</a>
 </nav>
-<details class="trip-map travel-reference" id="travel-essentials"><summary>Practical travel information</summary><ul><li><h4>Sunscreen rules</h4><p>Palau bans reef-toxic sunscreen. Check the official ingredient list and choose a compliant zinc oxide or titanium dioxide product. Pack a spare bottle. <a href="https://www.palaugov.pw/wp-content/uploads/2020/03/Sunscreen-Regulations-2020.pdf">Palau sunscreen regulations</a></p></li>
-<li><h4>Palau Pledge</h4><p>On entry, sign the passport pledge to respect Palau’s environment, culture and communities. <a href="https://palaupledge.com/">Read the pledge</a></p></li>
-<li><h4>Emergency and medical help</h4><p>Call <a href="tel:911">911</a> for emergencies. Belau National Hospital is in Meyuns, Koror. Its emergency department is at <a href="tel:+6804882558">+680 488 2558</a>. Serious cases may require evacuation. <a href="https://www.palaugov.pw/phone-numbers/">Government directory</a></p></li>
-<li><h4>Internet, eSIM and SIM</h4><p>Mobile coverage tends to be better in Koror and Airai, with weaker or no service offshore. Ask your hotel about Wi‑Fi for work. PNCC offers prepaid eSIM in Koror and physical SIMs in Koror and Airai. Download maps, your entry QR code and bookings before heading out. <a href="https://www.pnccpalau.com/visitors">PNCC visitor plans and shops</a></p></li>
+<div class="offline-tools" role="group" aria-label="Offline guide" hidden>
+  <button type="button" id="prepare-offline" aria-describedby="offline-state">Save guide offline</button>
+  <p id="offline-state" role="status"></p>
+</div>
+<details class="trip-map travel-reference" id="travel-essentials"><summary>Practical travel information</summary><ul><li><h4 id="sunscreen-rules">Sunscreen rules</h4><p>Palau bans reef-toxic sunscreen. Check the official ingredient list and choose a compliant zinc oxide or titanium dioxide product. Pack a spare bottle. <a href="https://www.palaugov.pw/wp-content/uploads/2020/03/Sunscreen-Regulations-2020.pdf">Palau sunscreen regulations</a></p></li>
+<li><h4 id="entry-pledge">Palau Pledge</h4><p>On entry, sign the passport pledge to respect Palau’s environment, culture and communities. <a href="https://palaupledge.com/">Read the pledge</a></p></li>
+<li id="emergency"><h4>Emergency and medical help</h4><p>Call <a href="tel:911">911</a> for emergencies. Belau National Hospital is in Meyuns, Koror. Its emergency department is at <a href="tel:+6804882558">+680 488 2558</a>. Serious cases may require evacuation. <a href="https://www.palaugov.pw/phone-numbers/">Government directory</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=Belau%20National%20Hospital%20Meyuns%20Palau">Hospital map</a></p></li>
+<li><h4 id="mobile-data">Internet, eSIM and SIM</h4><p>Mobile coverage tends to be better in Koror and Airai, with weaker or no service offshore. Ask your hotel about Wi‑Fi for work. PNCC offers prepaid eSIM in Koror and physical SIMs in Koror and Airai. Download maps, your entry QR code and bookings before heading out. <a href="https://www.pnccpalau.com/visitors">PNCC visitor plans and shops</a></p></li>
 <li><h4>Plugs and voltage</h4><p>Palau uses Type A/B outlets at 120 V, 60 Hz. Taiwan phone and laptop chargers with the same plug and a 100–240 V rating usually fit directly. Check appliances rated only for 110 V. <a href="https://www.palauconsulate.be/index.php/en/about-palau">Palau consulate information</a></p></li>
 <li><h4>Credit cards and US dollars</h4><p>Major credit cards are widely accepted at hotels and tourist businesses. Some small shops are cash-only. Carry small US dollar bills and ask operators about card acceptance or fees. <a href="https://travel.gc.ca/destinations/palau">Canada travel advice</a></p></li>
 <li><h4>Underwater camera rental</h4><p>Ask Splash about underwater camera rental, availability, housing, memory cards, deposit and how images are transferred. <a href="https://www.splash-palau.com/en/about/splash.html">Splash equipment rentals</a></p></li></ul></details>
@@ -372,10 +382,11 @@
     <label><input type="checkbox" name="clothes"><span>Light clothes, underwear and socks</span></label>
     <label><input type="checkbox" name="toiletries"><span>Toiletries</span></label>
     <label><input type="checkbox" name="repellent"><span>Insect repellent</span></label>
-    <label><input type="checkbox" name="reef-sunscreen"><span>Reef-friendly sunscreen plus a spare bottle <a href="#travel-essentials">Check ingredient rules</a></span></label>
+    <label><input type="checkbox" name="reef-sunscreen"><span>Reef-friendly sunscreen plus a spare bottle</span></label>
     <label><input type="checkbox" name="underwater-camera"><span>Confirm underwater camera rental, availability and housing</span></label>
   </fieldset>
 </div>
+<p class="packing-help"><a href="#sunscreen-rules">Check sunscreen ingredient rules</a></p>
 </section>
 <footer>
 <a id="back-to-top" href="#top"><span aria-hidden="true">↑</span> Back to top</a></footer>

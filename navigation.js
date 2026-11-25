@@ -33,6 +33,7 @@ const defaultTitle = document.title;
 const dayCards = [...document.querySelectorAll('.days article')];
 const singleDay = document.querySelector('#single-day');
 const dayViewStatus = document.querySelector('#day-view-status');
+const scheduleActions = document.querySelector('.schedule-actions');
 const dayModeKey = 'travelpalau:single-day';
 const activeDayKey = 'travelpalau:active-day';
 let selectedDay = dayCards[0];
@@ -48,6 +49,7 @@ function renderDays(target) {
     }
   }
   for (const day of dayCards) day.hidden = singleDay.checked && day !== selectedDay;
+  scheduleActions.hidden = singleDay.checked;
   dayViewStatus.textContent = singleDay.checked
     ? selectedDay.querySelector('.day').textContent + ' · ' + selectedDay.querySelector('[id$="-title"]').textContent
     : '';
@@ -61,6 +63,11 @@ try {
   // The view toggle still works on the current page.
 }
 singleDay.closest('.itinerary-controls').hidden = false;
+scheduleActions.addEventListener('click', event => {
+  const command = event.target.closest('[data-schedule-open]');
+  if (!command) return;
+  for (const day of dayCards) day.querySelector('details').open = command.dataset.scheduleOpen === 'true';
+});
 singleDay.addEventListener('change', () => {
   try {
     sessionStorage.setItem(dayModeKey, singleDay.checked ? '1' : '0');
@@ -357,6 +364,7 @@ filterSights();
 
 const departureInput = document.querySelector('#departure-date');
 const departureStatus = document.querySelector('#departure-status');
+const clearDeparture = document.querySelector('#clear-departure');
 const flightDateMatch = document.querySelector('#flight-date-match');
 const flightRows = [...document.querySelectorAll('[data-flight-days]')];
 const dayDates = [...document.querySelectorAll('.day-date')];
@@ -369,6 +377,7 @@ const shiftDate = (date, days) => new Date(date.getTime() + days * 86400000);
 
 function updateDeparture() {
   const iso = departureInput.value;
+  clearDeparture.hidden = !iso;
   const valid = Boolean(iso) && departureInput.validity.valid;
   const departure = valid ? new Date(iso + 'T00:00:00Z') : null;
   for (const day of dayDates) {
@@ -442,3 +451,56 @@ departureInput.addEventListener('input', () => {
   updateDeparture();
 });
 updateDeparture();
+
+clearDeparture.addEventListener('click', () => {
+  departureInput.value = '';
+  departureInput.dispatchEvent(new Event('input'));
+  departureInput.focus();
+});
+window.addEventListener('storage', event => {
+  if (event.key === dateStorageKey || event.key === null) {
+    departureInput.value = event.newValue || '';
+    updateDeparture();
+  }
+});
+
+const offlineTools = document.querySelector('.offline-tools');
+const prepareOffline = document.querySelector('#prepare-offline');
+const offlineState = document.querySelector('#offline-state');
+const offlineMessage = (zh, en) => { offlineState.textContent = isEnglish ? en : zh; };
+
+if ('serviceWorker' in navigator && ['http:', 'https:'].includes(location.protocol)) {
+  offlineTools.hidden = false;
+  offlineMessage('先在有網路時儲存。地圖原圖與站內圖片可離線看，外部網站仍需連線。',
+    'Save while connected. The site map and images work offline; external websites still need a connection.');
+  navigator.serviceWorker.getRegistration().then(registration => {
+    if (registration?.active) offlineMessage('離線行程已可使用。', 'The guide is available offline.');
+  }).catch(() => {});
+  prepareOffline.addEventListener('click', async () => {
+    prepareOffline.disabled = true;
+    offlineTools.setAttribute('aria-busy', 'true');
+    offlineMessage('正在儲存離線資料…', 'Saving the guide…');
+    try {
+      const registration = await navigator.serviceWorker.register('./offline.js');
+      const worker = registration.installing || registration.waiting;
+      if (worker) {
+        await new Promise((resolve, reject) => {
+          function check() {
+            if (worker.state === 'activated') resolve();
+            if (worker.state === 'redundant') reject(new Error('Offline cache installation failed'));
+          }
+          worker.addEventListener('statechange', check);
+          check();
+        });
+      } else if (!registration.active) {
+        throw new Error('Offline cache is unavailable');
+      }
+      offlineMessage('離線行程已儲存。', 'The guide is saved for offline use.');
+    } catch {
+      offlineMessage('儲存失敗，請確認網路後重試。', 'Could not save the guide. Check your connection and try again.');
+    } finally {
+      prepareOffline.disabled = false;
+      offlineTools.removeAttribute('aria-busy');
+    }
+  });
+}
