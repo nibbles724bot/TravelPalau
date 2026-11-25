@@ -1,4 +1,4 @@
-const CACHE = 'travelpalau-guide-v1';
+const CACHE = 'travelpalau-guide-v2';
 const scope = new URL(self.registration.scope);
 const core = [
   'index.html', 'en.html', 'styles.css?v=trip-mobile', 'navigation.js?v=trip-mobile',
