@@ -523,3 +523,35 @@ footer a { gap: .35rem; }
 }
 .packing-filter { width: fit-content; cursor: pointer; }
 .packing-filter input { accent-color: var(--accent); }
+
+.sight-tools .sight-filter {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  min-height: 2.75rem;
+  margin: .2rem 0 0;
+  width: fit-content;
+  cursor: pointer;
+}
+.sight-tools .sight-filter input { width: 1.1rem; min-height: auto; accent-color: var(--accent); }
+footer { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
+#print-topic {
+  min-height: 2.75rem;
+  padding-inline: .7rem;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  background: var(--surface);
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+#print-topic:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media print {
+  body { padding: 0; background: #fff; color: #111; }
+  .wrap { width: 100%; }
+  .bottom-bar, .skip, .jump, .day-actions, .booking-links,
+  .sight-tools, .packing-filter, footer { display: none !important; }
+  article, .budget-ledger, .season-guide, .packing-list fieldset { box-shadow: none; }
+  article, .packing-list fieldset, .sights-guide li { break-inside: avoid; }
+}

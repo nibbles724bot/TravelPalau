@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="帛琉五天四夜自由行，包含科羅、洛克群島浮潛、瀑布和紅樹林，以及預算和入境準備。">
 <title>帛琉五天四夜自由行</title>
-<link rel="stylesheet" href="styles.css?v=travel-polish">
-<script src="navigation.js?v=travel-polish" defer></script>
+<link rel="stylesheet" href="styles.css?v=travel-tools">
+<script src="navigation.js?v=travel-tools" defer></script>
 </head>
 <body id="top">
 <a class="skip" href="#main-content">跳到目前內容</a>
@@ -41,7 +41,7 @@
 <article id="day-2">
 <header class="day-heading"><p class="day">第 2 天</p><h3>洛克群島浮潛</h3></header>
 <dl><div><dt>上午</dt><dd>約 <time datetime="08:00">08:00</time>–<time datetime="09:00">09:00</time> 由科羅出發，搭快艇進洛克群島南潟湖。優先安排牛奶湖和一處適合初學者的淺礁</dd></div><div><dt>下午</dt><dd>午餐後依潮汐安排長沙灘或第二處浮潛點，約 <time datetime="16:00">16:00</time>–<time datetime="17:00">17:00</time> 回科羅</dd></div><div><dt>晚上</dt><dd>市區晚餐，休息</dd></div></dl>
-<nav class="day-actions" aria-label="第 2 天相關連結"><a href="#day-1">第 1 天</a><a href="#alternatives">出海備案</a><a href="#day-3">第 3 天</a></nav>
+<nav class="day-actions" aria-label="第 2 天相關連結"><a href="#sights-map">景點地圖</a><a href="#day-1">第 1 天</a><a href="#alternatives">出海備案</a><a href="#day-3">第 3 天</a></nav>
 </article>
 <article id="day-3">
 <header class="day-heading"><p class="day">第 3 天</p><h3>巴伯爾道布島陸遊</h3></header>
@@ -61,7 +61,7 @@
 </div><details class="trip-map itinerary-notes"><summary>出海提醒與景點連結</summary><p>出海時間為規劃用。長沙灘能否登陸取決於潮汐。獨木舟可詢問是否有半日行程、最低成團人數及救生衣尺寸。館方營業日與售票時間建議出發前確認。 <a href="https://pristineparadisepalau.com/knowledge-base/?kbai_article_slug=what-to-know-before-visiting-palaus-rock-islands">洛克群島旅客指南</a> · <a href="https://www.paddlingpalau.net/day-tours.html">獨木舟業者</a> · <a href="https://www.etpisonmuseum.org/">Etpison Museum</a> · <a href="https://palaunationalmuseum.pw/">Belau National Museum</a></p></details></section>
 <section id="sights" aria-labelledby="sights-title">
 <h2 id="sights-title">景點導覽</h2>
-<details class="trip-map">
+<details class="trip-map" id="sights-map">
   <summary>帛琉景點地圖</summary>
   <figure>
     <a href="palau-map.png" target="_blank" rel="noopener" aria-label="在新分頁開啟帛琉景點原圖">
@@ -75,66 +75,67 @@
   <summary>帛琉十大必玩景點</summary>
   <div class="sight-tools" hidden>
     <label for="sight-query">搜尋景點</label>
-    <input type="search" id="sight-query" placeholder="例如 牛奶湖、Kayangel" autocomplete="off">
+    <input type="search" id="sight-query" placeholder="例如 浮潛、Kayangel" autocomplete="off" enterkeyhint="search" aria-controls="sight-results">
+    <label class="sight-filter"><input type="checkbox" id="sights-on-trip" aria-controls="sight-results">只看有行程連結</label>
     <p id="sight-count" role="status"></p>
     <button type="button" id="clear-sight-query" hidden>清除搜尋</button>
   </div>
-  <ol>
-    <li>
+  <ol id="sight-results">
+    <li value="1">
       <span class="sight-photo">
         <img src="assets/attractions-reference.png" alt="海面上散布著翠綠的洛克群島" width="759" height="1158" style="--photo-x: 30; --photo-y: 50">
       </span>
       <div class="sight-copy"><h3>洛克群島 <span lang="en">Rock Islands</span></h3><p>翡翠色島嶼與深淺交錯的藍海，是帛琉代表性的景觀，也是世界自然與文化雙重遺產。</p><a href="#day-2">第 2 天行程</a></div>
     </li>
-    <li>
+    <li value="2">
       <span class="sight-photo">
         <img src="assets/attractions-reference.png" alt="透過小飛機窗戶俯瞰群島" width="759" height="1158" style="--photo-x: 30; --photo-y: 176">
       </span>
       <div class="sight-copy"><h3>小飛機空中環島</h3><p>搭小型飛機俯瞰七十群島。可詢問約 40–60 分鐘的觀景航程。</p></div>
     </li>
-    <li>
+    <li value="3">
       <span class="sight-photo">
         <img src="assets/attractions-reference.png" alt="牛奶湖的淺藍綠色水域" width="759" height="1158" style="--photo-x: 30; --photo-y: 301">
       </span>
       <div class="sight-copy"><h3>牛奶湖 <span lang="en">Milky Way</span></h3><p>乳白與藍綠色交錯的潟湖，湖底有天然白色石灰泥。</p><a href="#day-2">第 2 天行程</a></div>
     </li>
-    <li>
+    <li value="4">
       <span class="sight-photo">
         <img src="assets/attractions-reference.png" alt="水中聚集的黃金水母" width="759" height="1158" style="--photo-x: 30; --photo-y: 427">
       </span>
       <div class="sight-copy"><h3>黃金水母湖 <span lang="en">Jellyfish Lake</span></h3><p>有機會與黃金水母一同浮潛。出發前請確認湖區開放與近期水母狀況。</p><a href="#day-2">第 2 天可選</a></div>
     </li>
-    <li>
+    <li value="5">
       <span class="sight-photo">
         <img src="assets/attractions-reference.png" alt="藍綠色海面上的白色沙洲" width="759" height="1158" style="--photo-x: 30; --photo-y: 552">
       </span>
       <div class="sight-copy"><h3>長灘島 <span lang="en">Long Beach</span></h3><p>退潮時露出的白色沙洲，適合拍攝海島風景。能否登陸視潮汐而定。</p><a href="#day-2">第 2 天視潮汐</a></div>
     </li>
-    <li>
+    <li value="6">
       <span class="sight-photo">
         <img src="assets/attractions-reference.png" alt="潛水者游過珊瑚礁壁" width="759" height="1158" style="--photo-x: 30; --photo-y: 678">
       </span>
       <div class="sight-copy"><h3>海底大斷層 <span lang="en">Big Drop Off</span></h3><p>淺水珊瑚礁旁是陡降至深藍海域的礁壁，可依海況詢問適合的導覽。</p></div>
     </li>
-    <li>
+    <li value="7">
       <span class="sight-photo">
         <img src="assets/attractions-reference.png" alt="鬼蝠魟在潛水者上方游過" width="759" height="1158" style="--photo-x: 30; --photo-y: 803">
       </span>
       <div class="sight-copy"><h3>德國水道 <span lang="en">German Channel</span></h3><p>知名魟魚觀賞區，有機會遇見大型鬼蝠魟，適合有經驗的潛水者。</p></div>
     </li>
-    <li>
+    <li value="8">
       <span class="sight-photo">
         <img src="assets/attractions-reference.png" alt="從空中俯瞰卡揚島環礁" width="759" height="1158" style="--photo-x: 30; --photo-y: 929">
       </span>
       <div class="sight-copy"><h3>卡揚島 <span lang="en">Kayangel</span></h3><p>帛琉北方人煙稀少的環礁，適合看原始自然景觀。船程須視海況安排。</p></div>
     </li>
-    <li>
+    <li value="9">
       <span class="sight-photo">
         <img src="assets/attractions-reference.png" alt="黃色獨木舟朝石灰岩小島前進" width="759" height="1158" style="--photo-x: 30; --photo-y: 1055">
       </span>
       <div class="sight-copy"><h3>Nikko Bay 獨木舟</h3><p>划過石灰岩島嶼、紅樹林與寧靜潟湖，可向業者指定詢問 Nikko Bay 路線。</p><a href="#day-4">第 4 天可選</a></div>
     </li>
-    <li>
+    <li value="10">
       <span class="sight-photo">
         <img src="assets/waterfall-reference.png" alt="水流沿天使瀑布的岩壁落下" width="709" height="112" style="--photo-x: 32; --photo-y: 15">
       </span>
@@ -265,7 +266,7 @@
   </fieldset>
 </div>
 </section>
-<footer><a id="back-to-top" href="#top"><span aria-hidden="true">↑</span> 回到頁首</a></footer>
+<footer><button type="button" id="print-topic" hidden>列印本頁</button><a id="back-to-top" href="#top"><span aria-hidden="true">↑</span> 回到頁首</a></footer>
 </main>
 <div class="bottom-bar">
     <nav class="tabs wrap" aria-label="頁面導覽">

@@ -39,6 +39,7 @@ function showTopic(focusOnChange = false) {
   }
   overview.hidden = topic !== '#itinerary';
 
+  if (target instanceof HTMLDetailsElement) target.open = true;
   if (target && target !== section) {
     target.scrollIntoView();
     if (focusOnChange) focusContent(target);
@@ -93,23 +94,29 @@ function updatePackingProgress() {
   return checkedItems;
 }
 
-try {
-  const savedItems = JSON.parse(localStorage.getItem(packingStorageKey) || '[]');
-  if (Array.isArray(savedItems)) {
-    for (const item of packingItems) {
-      item.checked = savedItems.includes(item.name);
+function restorePackingItems() {
+  try {
+    const savedItems = JSON.parse(localStorage.getItem(packingStorageKey) || '[]');
+    if (Array.isArray(savedItems)) {
+      for (const item of packingItems) item.checked = savedItems.includes(item.name);
     }
+  } catch {
+    // Browser storage is optional.
   }
-} catch {
-  // The checklist still works when browser storage is unavailable.
+  updatePackingProgress();
 }
 
-updatePackingProgress();
+restorePackingItems();
+window.addEventListener('storage', event => {
+  if (event.key === packingStorageKey || event.key === null) restorePackingItems();
+});
 packingFilter.addEventListener('change', filterPackingItems);
 document.querySelector('.packing-list').addEventListener('change', event => {
   const checkedItems = updatePackingProgress();
   if (event.target.closest('label').hidden) {
-    const next = packingItems.find(item => !item.closest('label').hidden);
+    const position = packingItems.indexOf(event.target);
+    const remaining = [...packingItems.slice(position + 1), ...packingItems.slice(0, position)];
+    const next = remaining.find(item => !item.closest('label').hidden);
     (next || packingFilter).focus();
   }
   try {
@@ -122,25 +129,53 @@ document.querySelector('.packing-list').addEventListener('change', event => {
 
 const sightQuery = document.querySelector('#sight-query');
 const sightCount = document.querySelector('#sight-count');
+const onTrip = document.querySelector('#sights-on-trip');
 const clearSightQuery = document.querySelector('#clear-sight-query');
-const sights = [...document.querySelectorAll('.sights-guide li')];
+const normalizeSearch = value => value.normalize('NFKC').toLowerCase().trim();
+const sights = [...document.querySelectorAll('#sight-results li')].map(element => ({
+  element,
+  text: normalizeSearch(element.querySelector('.sight-copy').textContent),
+  hasTripLink: Boolean(element.querySelector('a[href^="#day-"]'))
+}));
 
 function filterSights() {
-  const query = sightQuery.value.trim().toLocaleLowerCase();
+  const tokens = normalizeSearch(sightQuery.value).split(/\s+/).filter(Boolean);
   let matches = 0;
-  for (const sight of sights) {
-    sight.hidden = !sight.querySelector('h3').textContent.toLocaleLowerCase().includes(query);
-    if (!sight.hidden) matches++;
+  for (const { element, text, hasTripLink } of sights) {
+    element.hidden = (onTrip.checked && !hasTripLink) || !tokens.every(token => text.includes(token));
+    if (!element.hidden) matches++;
   }
-  sightCount.textContent = matches ? `顯示 ${matches} 個景點` : '找不到符合的景點。';
-  clearSightQuery.hidden = !query;
+  sightCount.textContent = matches
+    ? `顯示 ${matches}／${sights.length} 個景點`
+    : '找不到符合的景點，請調整搜尋或篩選。';
+  clearSightQuery.hidden = !sightQuery.value && !onTrip.checked;
+}
+
+function resetSights() {
+  sightQuery.value = '';
+  onTrip.checked = false;
+  filterSights();
+  sightQuery.focus();
 }
 
 sightQuery.closest('.sight-tools').hidden = false;
 sightQuery.addEventListener('input', filterSights);
-clearSightQuery.addEventListener('click', () => {
-  sightQuery.value = '';
-  filterSights();
-  sightQuery.focus();
+sightQuery.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && !event.isComposing) resetSights();
 });
+onTrip.addEventListener('change', filterSights);
+clearSightQuery.addEventListener('click', resetSights);
 filterSights();
+
+const printTopic = document.querySelector('#print-topic');
+let expandedForPrint = [];
+printTopic.hidden = false;
+printTopic.addEventListener('click', () => window.print());
+window.addEventListener('beforeprint', () => {
+  expandedForPrint = [...document.querySelectorAll('section:not([hidden]) details:not([open])')];
+  expandedForPrint.forEach(details => details.open = true);
+});
+window.addEventListener('afterprint', () => {
+  expandedForPrint.forEach(details => details.open = false);
+  expandedForPrint = [];
+});
