@@ -1,7 +1,7 @@
-const CACHE = 'travelpalau-guide-v7';
+const CACHE = 'travelpalau-guide-v8';
 const scope = new URL(self.registration.scope);
 const core = [
-  'index.html', 'en.html', 'styles.css?v=country-brief', 'navigation.js?v=trip-mobile',
+  'index.html', 'en.html', 'styles.css?v=picture-book', 'navigation.js?v=trip-mobile',
   'language.js?v=travel-access', 'palau-map.png',
   'assets/rock-islands.webp', 'assets/scenic-flight.webp', 'assets/milky-way.webp',
   'assets/jellyfish-lake.webp', 'assets/long-beach.webp', 'assets/big-drop-off.webp',
